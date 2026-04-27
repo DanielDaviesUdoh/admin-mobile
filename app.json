@@ -3,7 +3,7 @@
     "name": "wpk-test01",
     "slug": "wpk-test01",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "wpktest01",
     "userInterfaceStyle": "automatic",
