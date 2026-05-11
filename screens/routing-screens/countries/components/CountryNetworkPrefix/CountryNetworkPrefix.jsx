@@ -3,8 +3,10 @@ import Loading from "@/components/loading";
 import MuiDialogSlide from "@/components/mui-dialogue-slide";
 import RouteLinks from "@/components/route-links/RouteLinks";
 import { getHrefModal } from "@/constants/hrefModal";
+import { useSubScreenStyles } from "@/styles/subScreenStyles";
 import { useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
+import { View } from "react-native";
 import {
   useNetworkPrefixByCountryCode,
   useRoutingCountries,
@@ -18,6 +20,7 @@ const CountryNetworkPrefixScreen = () => {
     ctryNetworkPrefix: { open: false, linkText: "" },
   });
   const { CountryCode: countryCode } = useLocalSearchParams();
+  const styles = useSubScreenStyles();
 
   const {
     data: nPCCodeData,
@@ -40,17 +43,19 @@ const CountryNetworkPrefixScreen = () => {
   const handleClose = closeModal("ctryNetworkPrefix");
 
   return (
-    <>
+    <View style={styles.cont}>
       {isLoading && <Loading />}
       {isError && <FeedbackTwo statusCode={statusCode} />}
       {!isError && nPCCodeData && (
-        <CountryTable
-          panelHeading={`${countryName ? countryName : ""} Network Prefixes`}
-          data={nPCCodeData}
-          columns={COLUMNS_CNP}
-          captionError={"network prefix"}
-          handleHrefCtryNetworkPrefix={handleHref("ctryNetworkPrefix")}
-        />
+        <View style={styles.tableCont}>
+          <CountryTable
+            panelHeading={`${countryName ? countryName : ""} Network Prefixes`}
+            data={nPCCodeData}
+            columns={COLUMNS_CNP}
+            captionError={"network prefix"}
+            handleHrefCtryNetworkPrefix={handleHref("ctryNetworkPrefix")}
+          />
+        </View>
       )}
       <RouteLinks
         navObject={"countries"}
@@ -71,7 +76,7 @@ const CountryNetworkPrefixScreen = () => {
           handleClose={handleClose}
         />
       )}
-    </>
+    </View>
   );
 };
 

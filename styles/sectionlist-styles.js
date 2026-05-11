@@ -3,45 +3,37 @@ import { StyleSheet } from "react-native";
 
 import { colors } from "@/constants/colors";
 import { platformFonts } from "@/constants/platform";
-import { getSpacing } from "@/constants/spacing";
+import { spacing } from "@/constants/spacing";
 import { typo } from "@/constants/typo";
 import { useResponsive } from "@/hooks/useResponsive";
 
 export const useSectionlistTableStyles = () => {
-  const { isSmallPhone, isTablet, isLandscape, fS, sS, rS } = useResponsive();
-
-  const space = getSpacing({
-    sS,
-    isSmallPhone,
-    isTablet,
-    isLandscape,
-  });
+  const { isSmallPhone, isTablet } = useResponsive();
 
   return useMemo(() => {
     const horizontalPadding = isTablet
-      ? space.md
+      ? spacing.sm2
       : isSmallPhone
-        ? space.sm
-        : space.md;
+        ? spacing.xs3
+        : spacing.sm2;
 
     const verticalPadding = isTablet
-      ? space.sm
+      ? spacing.sm2
       : isSmallPhone
-        ? space.xxs
-        : space.xs;
+        ? spacing.xs3
+        : spacing.sm1;
 
-    const headingFontSize = fS(
-      isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4,
-    );
-
-    const bodyFontSize = fS(
-      isTablet ? typo.t4 : isSmallPhone ? typo.t2 : typo.t3,
-    );
-
-    const borderRadius = rS(isTablet ? 10 : 6);
+    const headingFontSize = isTablet
+      ? typo.t5
+      : isSmallPhone
+        ? typo.t3
+        : typo.t4;
+    const bodyFontSize = isTablet ? typo.t4 : isSmallPhone ? typo.t2 : typo.t3;
+    const borderRadius = isTablet ? 10 : 6;
 
     return StyleSheet.create({
       panel: {
+        // alignSelf: "flex-start",
         width: "100%",
         backgroundColor: colors.sectionlistTable.panel_bg,
         borderRadius,
@@ -53,13 +45,13 @@ export const useSectionlistTableStyles = () => {
         overflow: "hidden",
 
         shadowColor: colors.sectionlistTable.shadow,
-        // shadowOffset: {
-        //   width: 0,
-        //   height: 2,
-        // },
-        // shadowOpacity: 0.06,
-        // shadowRadius: rS(4),
-        // elevation: 2,
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.06,
+        shadowRadius: 4,
+        elevation: 2,
       },
 
       panelPrimary: {
@@ -67,7 +59,7 @@ export const useSectionlistTableStyles = () => {
       },
 
       panelHeading: {
-        paddingVertical: isTablet ? space.sm : space.xs,
+        paddingVertical: isTablet ? spacing.sm3 : spacing.sm2,
         paddingHorizontal: horizontalPadding,
         backgroundColor: colors.sectionlistTable.heading_bg,
         borderTopLeftRadius: borderRadius,
@@ -89,7 +81,7 @@ export const useSectionlistTableStyles = () => {
 
       row: {
         flexDirection: "row",
-        minHeight: isTablet ? sS(40) : isSmallPhone ? sS(30) : sS(34),
+        minHeight: isTablet ? 36 : isSmallPhone ? 30 : 34,
         alignItems: "center",
       },
 
@@ -124,7 +116,7 @@ export const useSectionlistTableStyles = () => {
 
       emptyText: {
         paddingHorizontal: horizontalPadding,
-        paddingVertical: isTablet ? space.md : space.sm,
+        paddingVertical: isTablet ? spacing.sm3 : spacing.sm2,
         fontSize: headingFontSize,
         color: colors.sectionlistTable.empty_text,
         fontFamily: platformFonts.regular,
@@ -148,7 +140,7 @@ export const useSectionlistTableStyles = () => {
         color: colors.sectionlistTable.anchor_action,
         fontSize: bodyFontSize,
         fontFamily: platformFonts.regular,
-        marginLeft: space.xs,
+        marginLeft: spacing.xs2,
       },
 
       anchorAZeroMargin: {
@@ -162,10 +154,10 @@ export const useSectionlistTableStyles = () => {
       },
 
       addIcon: {
-        fontSize: fS(isTablet ? typo.t7 : isSmallPhone ? typo.t5 : typo.t6),
+        fontSize: isTablet ? typo.t7 : isSmallPhone ? typo.t5 : typo.t6,
         color: colors.sectionlistTable.anchor_action,
         fontFamily: platformFonts.bold,
       },
     });
-  }, [space, isSmallPhone, isTablet, fS, sS, rS]);
+  }, [isSmallPhone, isTablet]);
 };

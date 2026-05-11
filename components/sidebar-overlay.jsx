@@ -3,11 +3,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 
 export default function SidebarOverlay({ onPress }) {
   return (
-    <Pressable
-      style={styles.overlay}
-      activeOpacity={1}
-      onPress={onPress}
-    >
+    <Pressable style={styles.overlay} onPress={onPress}>
       <View style={{ flex: 1 }} />
     </Pressable>
   );

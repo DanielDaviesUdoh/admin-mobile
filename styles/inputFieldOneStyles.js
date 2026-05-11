@@ -25,6 +25,7 @@ export const useInputFieldOneStyles = () => {
       styleS: {
         backgroundColor: colors.inputField.input_bg,
         height: inputHeight,
+        paddingVertical: 1,
       },
 
       outlineStyle: {

@@ -1,8 +1,12 @@
+import "text-encoding-polyfill";
+
 import { toastConfig } from "@/constants/toast-config";
 import AuthProvider from "@/context/auth-provider";
+import { ConfirmDialogProvider } from "@/context/confirm-dialogue-provider";
 import { FontProvider } from "@/context/font-provider";
 import SlideProvider from "@/context/slide-provider";
 import { StaffProvider } from "@/context/staff-provider";
+import { SocketProvider } from "@/services/socket/SocketProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
@@ -18,21 +22,27 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryclient}>
-      <AuthProvider>
-        <SlideProvider>
-          <StaffProvider>
-            <FontProvider>
-              <SafeAreaProvider>
-                <AutocompleteDropdownContextProvider>
-                  <AppContent colorscheme={colorscheme} />
-                </AutocompleteDropdownContextProvider>
-                <Toast config={toastConfig} />
-                <StatusBar style={colorscheme === "dark" ? "dark" : "light"} />
-              </SafeAreaProvider>
-            </FontProvider>
-          </StaffProvider>
-        </SlideProvider>
-      </AuthProvider>
+      <SocketProvider>
+        <AuthProvider>
+          <SlideProvider>
+            <StaffProvider>
+              <FontProvider>
+                <SafeAreaProvider>
+                  <ConfirmDialogProvider>
+                    <AutocompleteDropdownContextProvider>
+                      <AppContent colorscheme={colorscheme} />
+                    </AutocompleteDropdownContextProvider>
+                  </ConfirmDialogProvider>
+                  <Toast config={toastConfig} />
+                  <StatusBar
+                    style={colorscheme === "dark" ? "dark" : "light"}
+                  />
+                </SafeAreaProvider>
+              </FontProvider>
+            </StaffProvider>
+          </SlideProvider>
+        </AuthProvider>
+      </SocketProvider>
     </QueryClientProvider>
   );
 }

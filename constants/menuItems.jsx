@@ -109,7 +109,7 @@ export const genDotDataSet = (data = [], dot) => {
 export const genCtryDataSet = (data = [], value = "code") => {
   return data.map((obj) => ({
     id: obj.code?.toString(),
-    title: `${obj.name} (${obj.code})`,
+    title: `${obj.name} ${obj.code !== "Select country code" ? `(${obj.code})` : ""}`,
     value: value === "code" ? obj.code : obj.name,
   }));
 };

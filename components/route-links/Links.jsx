@@ -3,26 +3,16 @@ import React from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 
 import { colors } from "@/constants/colors";
-import { getSpacing } from "@/constants/spacing";
+import { spacing } from "@/constants/spacing";
 import { typo } from "@/constants/typo";
 import { useResponsive } from "@/hooks/useResponsive";
 
 const Links = ({ allPath, path, sParamsName, sParams, title }) => {
   const router = useRouter();
 
-  const { sS, fS, rS, isSmallPhone, isTablet, isLandscape } = useResponsive();
-
-  const spacing = getSpacing({
-    sS,
-    isSmallPhone,
-    isTablet,
-    isLandscape,
-  });
+  const { isSmallPhone, isTablet, isLandscape } = useResponsive();
 
   const styles = getStyles({
-    spacing,
-    fS,
-    rS,
     isSmallPhone,
     isTablet,
     isLandscape,
@@ -65,11 +55,13 @@ const Links = ({ allPath, path, sParamsName, sParams, title }) => {
 
 export default Links;
 
-function getStyles({ spacing, fS, rS, isSmallPhone, isTablet, isLandscape }) {
+function getStyles({ isSmallPhone, isTablet, isLandscape }) {
   return StyleSheet.create({
     link: {
-      paddingVertical: spacing.xs,
-      paddingHorizontal: spacing.md,
+      minHeight: isTablet ? 34 : isSmallPhone ? 26 : 30,
+      minWidth: isTablet ? 80 : isLandscape ? 70 : 60,
+      paddingVertical: spacing.xs3,
+      paddingHorizontal: spacing.xs3,
 
       backgroundColor: colors.links.global_white_clr,
       borderWidth: 1,
@@ -78,12 +70,10 @@ function getStyles({ spacing, fS, rS, isSmallPhone, isTablet, isLandscape }) {
       marginLeft: isSmallPhone ? 0 : -1,
       marginBottom: spacing.xxs,
 
-      minHeight: isTablet ? 48 : isSmallPhone ? 34 : 40,
-
       justifyContent: "center",
       alignItems: "center",
 
-      borderRadius: rS(isTablet ? 10 : isLandscape ? 8 : isSmallPhone ? 5 : 6),
+      borderRadius: isTablet ? 10 : isLandscape ? 8 : isSmallPhone ? 5 : 6,
 
       maxWidth: isTablet
         ? "48%"
@@ -92,8 +82,6 @@ function getStyles({ spacing, fS, rS, isSmallPhone, isTablet, isLandscape }) {
           : isSmallPhone
             ? "100%"
             : "auto",
-
-      minWidth: isTablet ? 140 : isLandscape ? 110 : 90,
     },
 
     linkText: {
@@ -101,19 +89,7 @@ function getStyles({ spacing, fS, rS, isSmallPhone, isTablet, isLandscape }) {
       textAlign: "center",
       color: colors.links.select_outline_clr,
 
-      fontSize: fS(
-        isTablet
-          ? typo.t5
-          : isSmallPhone
-            ? typo.t3
-            : isLandscape
-              ? 13
-              : typo.t4,
-      ),
-
-      lineHeight: fS(
-        isTablet ? typo.t7 : isSmallPhone ? typo.t5 : isLandscape ? 20 : 21,
-      ),
+      fontSize: isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4,
     },
 
     linkPressed: {

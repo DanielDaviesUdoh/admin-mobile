@@ -24,13 +24,18 @@ export default function OtpAddForm({
     network_prefix: prefix,
   } = fieldsObjects ?? {};
 
-  const [providerChange, setProviderChange] = useState("");
+  const initProv = { provider: "Select" };
+
+  const [providerChange, setProviderChange] = useState(initProv.provider);
   const [showStatus, setShowStatus] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
 
   const { data: activeProviders } = useRoutingProviderAddOtp(linkTextOtpAdd);
 
-  const otpProvDataSet = genDotDataSet(activeProviders, "provider");
+  const otpProvDataSet =
+    activeProviders && activeProviders?.length > 0
+      ? genDotDataSet([initProv, ...activeProviders], "provider")
+      : genDotDataSet([initProv], "provider");
 
   const queryClient = useQueryClient();
   const { mutate, statusCode } = usePostRoutingSubmitChngOtpProv(
@@ -38,6 +43,7 @@ export default function OtpAddForm({
     qKey,
     setFetchTrigger,
     handleClose,
+    initProv,
     setProviderChange,
     setShowStatus,
     setShowProgress,
@@ -61,6 +67,7 @@ export default function OtpAddForm({
       network={network}
       mccmnc={mccmnc}
       prefix={prefix}
+      initProv={initProv}
       otpProvDataSet={otpProvDataSet}
       providerChange={providerChange}
       setProviderChange={setProviderChange}

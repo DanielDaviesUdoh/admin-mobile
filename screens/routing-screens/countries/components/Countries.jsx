@@ -5,12 +5,15 @@ import MuiPagination from "@/components/mui-pagination/MuiPagination";
 import SearchFeedback from "@/components/search-feedback ";
 import { usePagination } from "@/hooks/usePagination";
 import { useRoutingCountries } from "@/hooks/useRoutingShared";
+import { useSubScreenStyles } from "@/styles/subScreenStyles";
 import { useEffect, useMemo, useState } from "react";
+import { View } from "react-native";
 import { COLUMNS_CTRY } from "../constants/countriesTHead";
 import CountriesTable from "./CountriesTable";
 
 export default function CountriesScreen({ showBtn }) {
   const { data = [], isLoading, isError, statusCode } = useRoutingCountries();
+  const styles = useSubScreenStyles();
 
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
@@ -35,43 +38,43 @@ export default function CountriesScreen({ showBtn }) {
   }, [filter, itemsPerPage]);
 
   return (
-    <>
+    <View style={styles.cont}>
       {!isError && data.length > 0 && showBtn && (
-        <InputFieldOne
-          style={{ marginBottom: 12 }}
-          width="75%"
-          placeholder="Filter by name"
-          value={filter}
-          onChangeText={setFilter}
-        />
+        <View style={styles.textfieldCont}>
+          <InputFieldOne
+            style={{ marginBottom: 12 }}
+            placeholder="Filter by name"
+            value={filter}
+            onChangeText={setFilter}
+          />
+        </View>
       )}
 
       {isLoading && <Loading />}
       {isError && <FeedbackTwo statusCode={statusCode} />}
-
       {!isError &&
         !isLoading &&
         (filter && filteredData.length === 0 ? (
           <SearchFeedback text="name" />
         ) : (
-          <CountriesTable
-            panelHeading="Countries"
-            data={paginatedData}
-            columns={COLUMNS_CTRY}
-            currentPage={currentPage}
-            PaginationComponent={
-              <MuiPagination
-                totalItems={totalItems}
-                currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
-                startIndex={startIndex}
-                endIndex={endIndex}
-                setCurrentPage={setCurrentPage}
-                setItemsPerPage={setItemsPerPage}
-              />
-            }
-          />
+          <View style={styles.tableCont}>
+            <CountriesTable
+              panelHeading="Countries"
+              data={paginatedData}
+              columns={COLUMNS_CTRY}
+              currentPage={currentPage}
+            />
+          </View>
         ))}
-    </>
+      <MuiPagination
+        totalItems={totalItems}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        setCurrentPage={setCurrentPage}
+        setItemsPerPage={setItemsPerPage}
+      />
+    </View>
   );
 }

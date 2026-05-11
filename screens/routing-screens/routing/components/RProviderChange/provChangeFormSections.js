@@ -2,7 +2,7 @@ import { useFormStyles } from "@/styles/formStyles";
 import React from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
-import AutocompleteField from "@/components/auto-complete-field";
+import AutocompleteFieldTwo from "@/components/auto-complete-fieldtwo";
 import Feedback from "@/components/feedback";
 import InputSFieldOne from "@/components/input-sfield-one";
 
@@ -16,6 +16,8 @@ export default function useProvChangeFormSections(props) {
     network,
     mccmnc,
     prefix,
+    initProv,
+    initReason,
     provDataSet,
     providerChange,
     setProviderChange,
@@ -28,7 +30,9 @@ export default function useProvChangeFormSections(props) {
   } = props;
 
   const isDisabled =
-    !providerChange?.trim() || reason === "Please Select" || showProgress;
+    providerChange === initProv.provider ||
+    reason === initReason.code ||
+    showProgress;
 
   const Header = (
     <View style={styles.formHeader}>
@@ -92,7 +96,7 @@ export default function useProvChangeFormSections(props) {
         </Text>
 
         <View style={styles.textfield}>
-          <AutocompleteField
+          <AutocompleteFieldTwo
             dataSet={provDataSet}
             value={providerChange}
             onChange={(v) => setProviderChange(v)}
@@ -106,7 +110,7 @@ export default function useProvChangeFormSections(props) {
         </Text>
 
         <View style={styles.textfield}>
-          <AutocompleteField
+          <AutocompleteFieldTwo
             dataSet={reasonDataSet}
             value={reason}
             onChange={(v) => setReason(v)}

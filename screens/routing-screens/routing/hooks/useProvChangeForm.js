@@ -25,6 +25,8 @@ export const usePostRoutingSubmitChngProv = (
   qKey,
   setFetchTrigger,
   handleClose,
+  initProv,
+  initReason,
   setProviderChange,
   setReason,
   setShowStatus,
@@ -38,8 +40,8 @@ export const usePostRoutingSubmitChngProv = (
       queryClient.invalidateQueries(["fetchedData", { qKey: qKey }]);
       setTimeout(() => {
         handleClose();
-        setProviderChange("");
-        setReason("");
+        setProviderChange(initProv.provider);
+        setReason(initReason.code);
         setShowStatus(false);
       }, 3000);
     },
@@ -48,8 +50,8 @@ export const usePostRoutingSubmitChngProv = (
       setShowProgress(false);
       setTimeout(() => {
         handleClose();
-        setProviderChange("");
-        setReason("");
+        setProviderChange(initProv.provider);
+        setReason(initReason.code);
         setShowStatus(false);
       }, 5000);
     },

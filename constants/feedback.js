@@ -9,6 +9,11 @@ export const statusMessages = {
     title: "Success",
     message: "Your resource has been created successfully.",
   },
+  204: {
+    severity: "success",
+    title: "Success",
+    message: "The resource was deleted successfully.",
+  },
   "Request failed with status code 204": {
     severity: "error",
     title: "Error",
@@ -33,6 +38,11 @@ export const statusMessages = {
     severity: "error",
     title: "Error",
     message: "The requested resource was not found.",
+  },
+  "Request failed with status code 405": {
+    severity: "error",
+    title: "Error",
+    message: "This action cannot be performed right now. Please try again.",
   },
   "Request failed with status code 500": {
     severity: "error",

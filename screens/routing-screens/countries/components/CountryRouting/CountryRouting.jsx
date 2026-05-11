@@ -3,8 +3,10 @@ import Loading from "@/components/loading";
 import MuiDialogSlide from "@/components/mui-dialogue-slide";
 import RouteLinks from "@/components/route-links/RouteLinks";
 import { getHrefModal } from "@/constants/hrefModal";
+import { useSubScreenStyles } from "@/styles/subScreenStyles";
 import { useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
+import { View } from "react-native";
 import {
   useRoutingActiveProviders,
   useRoutingCountries,
@@ -19,6 +21,7 @@ const CountryRoutingScreen = () => {
     ctryRoute: { open: false, linkText: "" },
   });
   const { CountryCode: countryCode } = useLocalSearchParams();
+  const styles = useSubScreenStyles();
 
   const { data, isLoading, isError, statusCode } =
     useRoutingByCountry(countryCode);
@@ -38,17 +41,19 @@ const CountryRoutingScreen = () => {
   const handleClose = closeModal("ctryRoute");
 
   return (
-    <>
+    <View style={styles.cont}>
       {isLoading && <Loading />}
       {isError && <FeedbackTwo statusCode={statusCode} />}
       {!isError && data && (
-        <CountryTable
-          panelHeading={`${countryName ? countryName : ""} Routing`}
-          data={data}
-          columns={COLUMNS_CR}
-          captionError={"routing"}
-          handleHrefCtryRoute={handleHref("ctryRoute")}
-        />
+        <View style={styles.tableCont}>
+          <CountryTable
+            panelHeading={`${countryName ? countryName : ""} Routing`}
+            data={data}
+            columns={COLUMNS_CR}
+            captionError={"routing"}
+            handleHrefCtryRoute={handleHref("ctryRoute")}
+          />
+        </View>
       )}
       <RouteLinks
         navObject={"countries"}
@@ -70,7 +75,7 @@ const CountryRoutingScreen = () => {
           handleClose={handleClose}
         />
       )}
-    </>
+    </View>
   );
 };
 

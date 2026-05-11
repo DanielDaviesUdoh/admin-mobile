@@ -39,7 +39,6 @@ export const useAutocompleteFieldStyles = ({
             ? colors.autocompleteField.select_outline_clr
             : colors.autocompleteField.select_border_clr,
         borderRadius: isTablet ? 8 : 6,
-        paddingHorizontal: spacing.xs1,
       },
 
       textInputProps: {
@@ -57,6 +56,7 @@ export const useAutocompleteFieldStyles = ({
             : colors.autocompleteField.global_white_clr,
           paddingBottom: spacing.xs1,
           paddingTop: spacing.xs1,
+          paddingHorizontal: spacing.xs3,
         },
       },
 
@@ -89,6 +89,14 @@ export const useAutocompleteFieldStyles = ({
         fontFamily: platformFonts.regular,
         fontSize: isTablet ? typo.t4 : isSmallPhone ? typo.t2 : typo.t3,
         color: colors.autocompleteField.error_text,
+        paddingHorizontal: spacing.xs1,
+        paddingVertical: spacing.xs2,
+      },
+
+      loadingText: {
+        fontFamily: platformFonts.regular,
+        fontSize: isTablet ? typo.t4 : isSmallPhone ? typo.t2 : typo.t3,
+        color: colors.autocompleteField.global_black_clr,
         paddingHorizontal: spacing.xs1,
         paddingVertical: spacing.xs2,
       },

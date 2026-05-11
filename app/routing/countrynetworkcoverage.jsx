@@ -3,7 +3,7 @@ import CountryNetworkCoverageScreen from "@/screens/routing-screens/countries/co
 
 export default function CountryNetworkCoverage() {
   return (
-    <ScreenWrap pageTitle={"Country Network Coverage"}>
+    <ScreenWrap pageTitle={"Network Coverage"}>
       <CountryNetworkCoverageScreen />
     </ScreenWrap>
   );

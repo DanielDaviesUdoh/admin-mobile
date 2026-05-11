@@ -26,16 +26,26 @@ const ProvChangeForm = ({
     provider,
   } = fieldsObjects ?? {};
 
-  const [providerChange, setProviderChange] = useState("");
-  const [reason, setReason] = useState("");
+  const initProv = { provider: "Select" };
+  const initReason = { code: "Select" };
+
+  const [providerChange, setProviderChange] = useState(initProv.provider);
+  const [reason, setReason] = useState(initReason.code);
   const [showStatus, setShowStatus] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
 
   const { data: changeProviders } = useRoutingProviderChng(linkTextProvChange);
   const { data: changeReasons } = useRoutingChngReason();
 
-  const provDataSet = genDotDataSet(changeProviders, "provider");
-  const reasonDataSet = genDotDataSet(changeReasons, "code");
+  const provDataSet =
+    changeProviders && changeProviders?.length > 0
+      ? genDotDataSet([initProv, ...changeProviders], "provider")
+      : genDotDataSet([initProv], "provider");
+
+  const reasonDataSet =
+    changeReasons && changeReasons?.length > 0
+      ? genDotDataSet([initReason, ...changeReasons], "code")
+      : genDotDataSet([initReason], "code");
 
   const queryClient = useQueryClient();
   const { mutate, statusCode } = usePostRoutingSubmitChngProv(
@@ -43,6 +53,8 @@ const ProvChangeForm = ({
     qKey,
     setFetchTrigger,
     handleClose,
+    initProv,
+    initReason,
     setProviderChange,
     setReason,
     setShowStatus,
@@ -70,6 +82,8 @@ const ProvChangeForm = ({
       network={network}
       mccmnc={mccmnc}
       prefix={prefix}
+      initProv={initProv}
+      initReason={initReason}
       provDataSet={provDataSet}
       providerChange={providerChange}
       setProviderChange={setProviderChange}

@@ -1,9 +1,12 @@
+import { useSocket } from "@/services/socket/useSocket";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
+import { AppState } from "react-native";
 
 export const AuthContext = createContext({});
 
 export default function AuthProvider({ children }) {
+  const { connect, disconnect } = useSocket();
   const [auth, setAuth] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasRequestedCode, setHasRequestedCode] = useState(false);
@@ -27,6 +30,44 @@ export default function AuthProvider({ children }) {
 
     getAuth();
   }, []);
+
+  // useEffect(() => {
+  //   if (!auth?.auth) return;
+  //   connect();
+
+  //   return () => {
+  //     disconnect();
+  //   };
+  // }, [auth?.auth, connect, disconnect]);
+
+  const appStateRef = useRef(AppState.currentState);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextState) => {
+      const previousState = appStateRef.current;
+
+      if (
+        previousState.match(/inactive|background/) &&
+        nextState === "active"
+      ) {
+        console.log("App has come to foreground");
+        if (auth?.auth) {
+          connect();
+        }
+      }
+
+      if (nextState === "background") {
+        console.log("App moved to background");
+        disconnect();
+      }
+
+      appStateRef.current = nextState; // update after comparison
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, [auth?.auth, connect, disconnect]);
 
   const login = async (auth) => {
     try {

@@ -1,4 +1,4 @@
-import AutocompleteField from "@/components/auto-complete-field";
+import AutocompleteFieldTwo from "@/components/auto-complete-fieldtwo";
 import InputFieldOne from "@/components/input-field-one";
 import CRadioButtonOne from "@/components/radio-button-one";
 import { colors } from "@/constants/colors";
@@ -20,12 +20,14 @@ export default function RoutingFormJXS(props) {
     selectedRadioBtn,
     setSelectedRadioBtn,
     ctryDataSet,
+    fieldCountryCode,
     setFieldCountryCode,
     handleSelectFocus,
     fieldPhoneOrPrefix,
     setFieldPhoneOrPrefix,
     handleTextFocus,
     provDataSet,
+    fieldProvider,
     setFieldProvider,
     disableFetchBtn,
     showProgData,
@@ -46,13 +48,16 @@ export default function RoutingFormJXS(props) {
           status={selectedRadioBtn === "country code"}
           onPress={() => setSelectedRadioBtn("country code")}
         />
-        <AutocompleteField
-          label="Country Code"
-          dataSet={ctryDataSet}
-          onChange={(v) => setFieldCountryCode(v)}
-          activeRadioBtn={"country code"}
-          handleFocus={handleSelectFocus}
-        />
+        <View style={styles.textfield}>
+          <AutocompleteFieldTwo
+            label="Country Code"
+            dataSet={ctryDataSet}
+            value={fieldCountryCode}
+            onChange={(v) => setFieldCountryCode(v)}
+            activeRadioBtn={"country code"}
+            handleFocus={handleSelectFocus}
+          />
+        </View>
       </View>
       <View style={styles.formGroup}>
         <CRadioButtonOne
@@ -60,13 +65,15 @@ export default function RoutingFormJXS(props) {
           status={selectedRadioBtn === "phone number or prefix"}
           onPress={() => setSelectedRadioBtn("phone number or prefix")}
         />
-        <InputFieldOne
-          placeholder="Phone or Prefix"
-          value={fieldPhoneOrPrefix.trim()}
-          onChangeText={setFieldPhoneOrPrefix}
-          activeRadioBtn={"phone number or prefix"}
-          handleFocus={handleTextFocus}
-        />
+        <View style={styles.textfield}>
+          <InputFieldOne
+            placeholder="Phone or Prefix"
+            value={fieldPhoneOrPrefix.trim()}
+            onChangeText={setFieldPhoneOrPrefix}
+            activeRadioBtn={"phone number or prefix"}
+            handleFocus={handleTextFocus}
+          />
+        </View>
       </View>
       <View style={styles.formGroup}>
         <CRadioButtonOne
@@ -74,13 +81,16 @@ export default function RoutingFormJXS(props) {
           status={selectedRadioBtn === "provider"}
           onPress={() => setSelectedRadioBtn("provider")}
         />
-        <AutocompleteField
-          label="Provider"
-          dataSet={provDataSet}
-          onChange={(v) => setFieldProvider(v)}
-          activeRadioBtn={"provider"}
-          handleFocus={handleSelectFocus}
-        />
+        <View style={styles.textfield}>
+          <AutocompleteFieldTwo
+            label="Provider"
+            dataSet={provDataSet}
+            value={fieldProvider}
+            onChange={(v) => setFieldProvider(v)}
+            activeRadioBtn={"provider"}
+            handleFocus={handleSelectFocus}
+          />
+        </View>
       </View>
       <View>
         {selectedRadioBtn === "provider" ? (
@@ -130,6 +140,10 @@ function getStyles({ isTablet, isSmallPhone, spacing }) {
       maxWidth: isTablet ? 340 : isSmallPhone ? undefined : 280,
       flexDirection: "row",
       alignItems: "center",
+    },
+
+    textfield: {
+      width: isTablet ? 310 : isSmallPhone ? undefined : 250,
     },
     buttonCont: {
       minWidth: isTablet ? 66 : 60,

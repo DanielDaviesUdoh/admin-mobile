@@ -9,6 +9,11 @@ export const statusMessagesTwo = {
     color: "green",
     message: "Your resource has been created successfully.",
   },
+  204: {
+    title: "Success",
+    color: "green",
+    message: "The resource was deleted successfully.",
+  },
   "Request failed with status code 204": {
     title: "Error",
     color: "red",

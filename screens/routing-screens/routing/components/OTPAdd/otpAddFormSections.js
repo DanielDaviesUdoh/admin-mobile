@@ -2,7 +2,7 @@ import { useFormStyles } from "@/styles/formStyles";
 import React from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
-import AutocompleteField from "@/components/auto-complete-field";
+import AutocompleteFieldTwo from "@/components/auto-complete-fieldtwo";
 import Feedback from "@/components/feedback";
 import InputSFieldOne from "@/components/input-sfield-one";
 
@@ -16,6 +16,7 @@ export default function useOTPAddFormSections(props) {
     network,
     mccmnc,
     prefix,
+    initProv,
     otpProvDataSet,
     providerChange,
     setProviderChange,
@@ -24,7 +25,7 @@ export default function useOTPAddFormSections(props) {
     showProgress,
   } = props;
 
-  const isDisabled = !providerChange.trim() || showProgress;
+  const isDisabled = providerChange === initProv.provider || showProgress;
 
   const Header = (
     <View style={styles.formHeader}>
@@ -78,8 +79,9 @@ export default function useOTPAddFormSections(props) {
         <Text style={[styles.controlLabel]}>OTP Provider:</Text>
 
         <View style={styles.textfield}>
-          <AutocompleteField
+          <AutocompleteFieldTwo
             dataSet={otpProvDataSet}
+            value={providerChange}
             onChange={(v) => setProviderChange(v)}
           />
         </View>

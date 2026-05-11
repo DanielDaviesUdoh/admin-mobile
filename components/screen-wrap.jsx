@@ -81,10 +81,10 @@ const getStyles = ({
           ? spacing.xs2
           : spacing.xs3,
       paddingBottom: isTablet
-        ? spacing.lg2
+        ? spacing.sm1
         : isSmallPhone
-          ? spacing.sm3
-          : spacing.md2,
+          ? spacing.xs1
+          : spacing.xs3,
     },
 
     titleButton: {
@@ -119,8 +119,6 @@ const getStyles = ({
     },
 
     buttonCont: {
-      // alignSelf: isSmallPhone && !isLandscape ? "flex-start" : "center",
-      // minHeight: isTablet ? 44 : 38,
       paddingVertical: isTablet
         ? spacing.sm1
         : isSmallPhone
@@ -135,15 +133,6 @@ const getStyles = ({
       backgroundColor: colors.screenWrap.button_bg,
       justifyContent: "center",
       alignItems: "center",
-
-      // shadowColor: colors.screenWrap.shadow,
-      // shadowOffset: {
-      //   width: 0,
-      //   height: 2,
-      // },
-      // shadowOpacity: 0.08,
-      // shadowRadius: rS(4),
-      // elevation: 2,
     },
 
     buttonPressed: {

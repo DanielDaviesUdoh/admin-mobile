@@ -6,6 +6,8 @@ export const usePostNumberRouting = (
   qKey,
   setFetchTrigger,
   handleClose,
+  initProv,
+  initPrefix,
   setPrefixes,
   setProvider,
   setShowStatus,
@@ -19,8 +21,8 @@ export const usePostNumberRouting = (
       queryClient.invalidateQueries(["fetchedData", { qKey: qKey }]);
       setTimeout(() => {
         handleClose();
-        setPrefixes("");
-        setProvider("");
+        setPrefixes(initPrefix);
+        setProvider(initProv.provider);
         setShowStatus(false);
       }, 3000);
     },
@@ -29,8 +31,8 @@ export const usePostNumberRouting = (
       setShowProgress(false);
       setTimeout(() => {
         handleClose();
-        setPrefixes("");
-        setProvider("");
+        setPrefixes(initPrefix);
+        setProvider(initProv.provider);
         setShowStatus(false);
       }, 5000);
     },

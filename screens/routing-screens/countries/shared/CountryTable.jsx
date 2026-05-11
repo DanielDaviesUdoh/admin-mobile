@@ -11,7 +11,6 @@ const CountryTable = ({
   handleHrefCtryNetworks,
   handleHrefCtryRoute,
   handleHrefCtryNetworkPrefix,
-  routeLinks,
 }) => {
   const styles = useTablePanelStyles();
 
@@ -41,9 +40,9 @@ const CountryTable = ({
     <View style={[styles.row, styles.thead]}>
       {columns.map((col, index) => {
         if (
-          col.td === "actionCN" ||
-          col.td === "actionCR" ||
-          col.td === "actionCNP"
+          col.th === "actionCN" ||
+          col.th === "actionCR" ||
+          col.th === "actionCNP"
         ) {
           return (
             <View
@@ -161,12 +160,15 @@ const CountryTable = ({
         <View>
           {renderHeader()}
 
-          <View style={{ maxHeight: 350 }}>
+          <View>
             <FlatList
               data={data}
               keyExtractor={(_, index) => index.toString()}
               renderItem={renderItem}
-              ListFooterComponent={routeLinks || null}
+              initialNumToRender={20}
+              maxToRenderPerBatch={20}
+              windowSize={10}
+              removeClippedSubviews
             />
           </View>
         </View>

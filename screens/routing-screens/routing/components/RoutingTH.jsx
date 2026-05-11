@@ -1,7 +1,7 @@
 import FeedbackTwo from "@/components/feedback-two";
 import React from "react";
 import { Text, View } from "react-native";
-import { useSectionlistTableStyles } from "./sectionlist-styles";
+import { useSectionlistTableStyles } from "../../../../styles/sectionlist-styles";
 
 export default function RoutingTH({ section }) {
   const styles = useSectionlistTableStyles();

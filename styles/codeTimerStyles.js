@@ -7,7 +7,7 @@ import { useMemo } from "react";
 import { StyleSheet } from "react-native";
 
 export const useCodeTimerStyles = () => {
-  const { isTablet, isSmallPhone } = useResponsive();
+  const { isTablet } = useResponsive();
 
   return useMemo(() => {
     const timerFontSize = isTablet ? typo.t6 : typo.t3;
@@ -29,5 +29,5 @@ export const useCodeTimerStyles = () => {
         color: colors.codeTimer.body_text,
       },
     });
-  }, [isTablet, isSmallPhone]);
+  }, [isTablet]);
 };

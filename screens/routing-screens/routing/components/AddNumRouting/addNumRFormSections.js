@@ -2,7 +2,7 @@ import { useFormStyles } from "@/styles/formStyles";
 import React from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
-import AutocompleteField from "@/components/auto-complete-field";
+import AutocompleteFieldTwo from "@/components/auto-complete-fieldtwo";
 import Feedback from "@/components/feedback";
 import InputFieldOne from "@/components/input-field-one";
 import InputSFieldOne from "@/components/input-sfield-one";
@@ -12,6 +12,7 @@ export default function useAddNumRFormSections(props) {
 
   const {
     handleSubmit,
+    initProv,
     prefixes,
     setPrefixes,
     prefixesDataSet,
@@ -28,7 +29,8 @@ export default function useAddNumRFormSections(props) {
     showProgress,
   } = props;
 
-  const isDisabled = !extraPrefix?.trim() || !provider?.trim() || showProgress;
+  const isDisabled =
+    !extraPrefix?.trim() || provider === initProv.provider || showProgress;
 
   const Header = (
     <View style={styles.formHeader}>
@@ -50,7 +52,7 @@ export default function useAddNumRFormSections(props) {
         <Text style={[styles.controlLabel, styles.widthAdjust]}>Prefixes:</Text>
 
         <View style={styles.textfield}>
-          <AutocompleteField
+          <AutocompleteFieldTwo
             dataSet={prefixesDataSet}
             value={prefixes}
             onChange={(v) => setPrefixes(v)}
@@ -63,7 +65,7 @@ export default function useAddNumRFormSections(props) {
           <Text style={[styles.controlLabel, styles.widthAdjust]}>Mobile:</Text>
 
           <View style={[styles.textfield, styles.addNumRouting]}>
-            <View style={{ width: 80 }}>
+            <View style={styles.addNumRW}>
               <InputSFieldOne
                 value={selectedPrefix ?? ""}
                 outlineStyle={{
@@ -74,13 +76,7 @@ export default function useAddNumRFormSections(props) {
               />
             </View>
 
-            <View
-              style={{
-                minWidth: 90,
-                maxWidth: 148,
-                width: "100%",
-              }}
-            >
+            <View style={styles.addNumRWTwo}>
               <InputFieldOne
                 value={extraPrefix?.trim()}
                 onChangeText={setExtraPrefix}
@@ -88,7 +84,7 @@ export default function useAddNumRFormSections(props) {
                 outlineStyle={{
                   borderTopLeftRadius: 0,
                   borderBottomLeftRadius: 0,
-                  marginLeft: -6,
+                  marginLeft: -8,
                 }}
               />
             </View>
@@ -103,7 +99,7 @@ export default function useAddNumRFormSections(props) {
           </Text>
 
           <View style={styles.textfield}>
-            <AutocompleteField
+            <AutocompleteFieldTwo
               dataSet={provBankRDataSet}
               value={provider}
               onChange={(v) => setProvider(v)}

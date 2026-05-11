@@ -1,12 +1,17 @@
 export const getDisableFetchBtn = (
   selectedRadioBtn,
   fieldCountryCode,
+  initFieldCtryC,
   fieldPhoneOrPrefix,
   fieldProvider,
+  initFieldProv,
 ) => {
   const disableFetchBtn = () => {
     if (!selectedRadioBtn) return true;
-    if (selectedRadioBtn === "country code" && !fieldCountryCode.trim())
+    if (
+      selectedRadioBtn === "country code" &&
+      fieldCountryCode === initFieldCtryC.code
+    )
       return true;
     if (
       selectedRadioBtn === "phone number or prefix" &&
@@ -15,7 +20,7 @@ export const getDisableFetchBtn = (
       return true;
     if (
       selectedRadioBtn === "provider" &&
-      (!fieldProvider || fieldProvider === "select")
+      fieldProvider === initFieldProv.provider
     )
       return true;
     return false;

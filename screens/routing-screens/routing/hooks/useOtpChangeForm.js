@@ -9,7 +9,7 @@ export const useRoutingProviderChngOtp = (phonePrefix, provider) => {
   return useGetData(
     ["routingProviderChngOtp", { phonePrefix, provider }],
     `${ROUTING_CHANGE_OTP_PROVIDER}?phone-prefix=${phonePrefix}&provider=${provider}`,
-    { staleTime: 1000 * 60 * 5 }
+    { staleTime: 1000 * 60 * 5 },
   );
 };
 
@@ -18,29 +18,30 @@ export const usePostRoutingSubmitChngOtpProv = (
   qKey,
   setFetchTrigger,
   handleClose,
+  initProv,
   setProviderChange,
   setShowStatus,
-  setShowProgress
+  setShowProgress,
 ) => {
   return usePostData(ROUTING_SUBMIT_CHANGE_OTP_PROVIDER, {
     onSuccess: () => {
-      setShowStatus(true)
-      setShowProgress(false)
+      setShowStatus(true);
+      setShowProgress(false);
       setFetchTrigger(true); //allows a refetch
       queryClient.invalidateQueries(["fetchedData", { qKey: qKey }]);
       setTimeout(() => {
         handleClose();
-        setProviderChange("");
-        setShowStatus(false)
+        setProviderChange(initProv.provider);
+        setShowStatus(false);
       }, 3000);
     },
     onError: () => {
-      setShowStatus(true)
-      setShowProgress(false)
+      setShowStatus(true);
+      setShowProgress(false);
       setTimeout(() => {
         handleClose();
-        setProviderChange("");
-        setShowStatus(false)
+        setProviderChange(initProv.provider);
+        setShowStatus(false);
       }, 5000);
     },
   });

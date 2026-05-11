@@ -6,7 +6,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { colors } from "@/constants/colors";
 import { platformFonts } from "@/constants/platform";
 import { menuData } from "@/constants/sidebar-menu";
-import { getSpacing } from "@/constants/spacing";
+import { spacing } from "@/constants/spacing";
 import { typo } from "@/constants/typo";
 import { useResponsive } from "@/hooks/useResponsive";
 
@@ -14,31 +14,15 @@ export default function SidebarCont({ closeSidebar }) {
   const [openParent, setOpenParent] = useState(null);
   const router = useRouter();
 
-  const { isSmallPhone, isTablet, isLandscape, fS, sS, rS, iS } =
-    useResponsive();
-
-  const space = getSpacing({
-    sS,
-    isSmallPhone,
-    isTablet,
-    isLandscape,
-  });
+  const { isSmallPhone, isTablet } = useResponsive();
 
   const styles = useMemo(
     () =>
       getStyles({
-        colors,
-        platformFonts,
-        typo,
-        space,
         isSmallPhone,
         isTablet,
-        isLandscape,
-        fS,
-        rS,
-        iS,
       }),
-    [space, isSmallPhone, isTablet, isLandscape, fS, rS, iS],
+    [isSmallPhone, isTablet],
   );
 
   const handleParentClick = (index, item) => {
@@ -75,7 +59,7 @@ export default function SidebarCont({ closeSidebar }) {
                 <View style={styles.parentLeft}>
                   <Ionicons
                     name={item.icon}
-                    size={isTablet ? iS(22) : isSmallPhone ? iS(16) : iS(18)}
+                    size={isTablet ? 22 : isSmallPhone ? 16 : 18}
                     color={colors.sidebarCont.icon}
                   />
 
@@ -87,7 +71,7 @@ export default function SidebarCont({ closeSidebar }) {
                     name={
                       isOpen ? "chevron-up-outline" : "chevron-down-outline"
                     }
-                    size={isTablet ? iS(18) : isSmallPhone ? iS(14) : iS(16)}
+                    size={isTablet ? 18 : isSmallPhone ? 14 : 16}
                     color={colors.sidebarCont.chevron}
                   />
                 )}
@@ -109,9 +93,7 @@ export default function SidebarCont({ closeSidebar }) {
                     >
                       <Ionicons
                         name={child.icon}
-                        size={
-                          isTablet ? iS(18) : isSmallPhone ? iS(13) : iS(15)
-                        }
+                        size={isTablet ? 18 : isSmallPhone ? 13 : 15}
                         color={colors.sidebarCont.child_icon}
                       />
 
@@ -128,43 +110,33 @@ export default function SidebarCont({ closeSidebar }) {
   );
 }
 
-const getStyles = ({
-  colors,
-  platformFonts,
-  typo,
-  space,
-  isSmallPhone,
-  isTablet,
-  isLandscape,
-  fS,
-  rS,
-}) => {
+const getStyles = ({ isSmallPhone, isTablet }) => {
   return StyleSheet.create({
     container: {
       flex: 1,
       width: "100%",
       backgroundColor: colors.sidebarCont.background,
-      paddingTop: isTablet ? space.md : space.sm,
-      paddingBottom: space.sm,
+      paddingTop: isTablet ? spacing.md1 : spacing.sm3,
+      paddingBottom: spacing.sm3,
     },
 
     scroll: {
       flexGrow: 1,
-      paddingHorizontal: isTablet ? space.md : space.sm,
+      paddingHorizontal: isTablet ? spacing.sm3 : spacing.sm2,
     },
 
     parentContainer: {
-      marginBottom: space.xs,
+      marginBottom: spacing.sm1,
     },
 
     parentButton: {
-      minHeight: isTablet ? 54 : isSmallPhone ? 44 : 48,
+      minHeight: isTablet ? 48 : isSmallPhone ? 44 : 46,
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      paddingHorizontal: isTablet ? space.md : space.sm,
-      paddingVertical: isTablet ? space.sm : space.xs,
-      borderRadius: rS(isTablet ? 12 : 10),
+      paddingHorizontal: isTablet ? spacing.sm3 : spacing.sm2,
+      paddingVertical: isTablet ? spacing.sm1 : spacing.xs3,
+      borderRadius: isTablet ? 12 : 10,
       backgroundColor: colors.sidebarCont.parent_bg,
       borderWidth: 1,
       borderColor: colors.sidebarCont.parent_border,
@@ -175,7 +147,7 @@ const getStyles = ({
         height: 1,
       },
       shadowOpacity: 0.05,
-      shadowRadius: rS(2),
+      shadowRadius: 2,
       elevation: 1,
     },
 
@@ -197,29 +169,29 @@ const getStyles = ({
 
     parentText: {
       flexShrink: 1,
-      marginLeft: space.xs,
+      marginLeft: spacing.xs3,
       color: colors.sidebarCont.parent_text,
-      fontSize: fS(isTablet ? typo.t6 : isSmallPhone ? typo.t4 : typo.t5),
-      lineHeight: fS(isTablet ? typo.t7 : isSmallPhone ? typo.t5 : typo.t6),
+      fontSize: isTablet ? typo.t6 : isSmallPhone ? typo.t4 : typo.t5,
+      lineHeight: isTablet ? typo.t7 : isSmallPhone ? typo.t5 : typo.t6,
       fontFamily: platformFonts.regular,
     },
 
     childContainer: {
-      marginTop: space.xs,
-      marginLeft: isTablet ? space.lg : space.md,
-      paddingLeft: space.sm,
+      marginTop: spacing.xs3,
+      marginLeft: isTablet ? spacing.md1 : spacing.sm3,
+      paddingLeft: spacing.sm1,
       borderLeftWidth: 1,
       borderLeftColor: colors.sidebarCont.child_border,
     },
 
     childButton: {
-      minHeight: isTablet ? 46 : isSmallPhone ? 38 : 42,
+      minHeight: isTablet ? 38 : isSmallPhone ? 34 : 36,
       flexDirection: "row",
       alignItems: "center",
-      paddingHorizontal: space.sm,
-      paddingVertical: space.xs,
-      borderRadius: rS(8),
-      marginBottom: space.xxs,
+      paddingHorizontal: spacing.sm2,
+      paddingVertical: spacing.sm1,
+      borderRadius: 8,
+      marginBottom: spacing.xs2,
     },
 
     childButtonPressed: {
@@ -228,10 +200,10 @@ const getStyles = ({
 
     childText: {
       flexShrink: 1,
-      marginLeft: space.xs,
+      marginLeft: spacing.xs3,
       color: colors.sidebarCont.child_text,
-      fontSize: fS(isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4),
-      lineHeight: fS(isTablet ? typo.t6 : isSmallPhone ? typo.t4 : typo.t5),
+      fontSize: isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4,
+      lineHeight: isTablet ? typo.t6 : isSmallPhone ? typo.t4 : typo.t5,
       fontFamily: platformFonts.regular,
     },
   });

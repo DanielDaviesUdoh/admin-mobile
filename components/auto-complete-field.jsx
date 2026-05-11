@@ -15,6 +15,7 @@ export default function AutocompleteField({
   activeRadioBtn,
   handleFocus,
   disabled = false,
+  isLoading = false,
 }) {
   const [focused, setFocused] = useState(false);
 
@@ -70,7 +71,9 @@ export default function AutocompleteField({
       suggestionsListContainerStyle={styles.suggestionsListContainerStyle}
       suggestionsListTextStyle={styles.suggestionsListTextStyle}
       EmptyResultComponent={
-        <Text style={styles.emptyText}>Search does not match value</Text>
+        <Text style={isLoading ? styles.loadingText : styles.emptyText}>
+          {isLoading ? "Loading..." : "Search does not match value"}
+        </Text>
       }
       ChevronIconComponent={
         <Ionicons

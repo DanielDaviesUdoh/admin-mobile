@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/colors";
 import { platformFonts } from "@/constants/platform";
-import { getSpacing } from "@/constants/spacing";
+import { spacing } from "@/constants/spacing";
 import { typo } from "@/constants/typo";
 import { useResponsive } from "@/hooks/useResponsive";
 
@@ -17,17 +17,9 @@ export default function SelectField({
   handleFocus,
   disabled = false,
 }) {
-  const { isSmallPhone, isTablet, isLandscape, fS, sS, rS, htS } =
-    useResponsive();
+  const { isSmallPhone, isTablet } = useResponsive();
 
   const [focused, setFocused] = useState(false);
-
-  const space = getSpacing({
-    sS,
-    isSmallPhone,
-    isTablet,
-    isLandscape,
-  });
 
   const handleChildFocus = () => {
     if (disabled) return;
@@ -47,20 +39,12 @@ export default function SelectField({
   const styles = useMemo(
     () =>
       getStyles({
-        colors,
-        platformFonts,
-        typo,
-        space,
         width,
-        disabled,
         focused,
         isSmallPhone,
         isTablet,
-        fS,
-        rS,
-        htS,
       }),
-    [space, width, disabled, focused, isSmallPhone, isTablet, fS, rS, htS],
+    [width, focused, isSmallPhone, isTablet],
   );
 
   return (
@@ -102,30 +86,22 @@ export default function SelectField({
   );
 }
 
-const getStyles = ({
-  colors,
-  platformFonts,
-  typo,
-  space,
-  width,
-  disabled,
-  focused,
-  isSmallPhone,
-  isTablet,
-  fS,
-  rS,
-  htS,
-}) => {
+const getStyles = ({ width, focused, isSmallPhone, isTablet }) => {
+  const inputHeight = isTablet ? 48 : 44;
+
+  const fontSize = isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4;
+
+  const borderRadius = isTablet ? 8 : 6;
+
   return StyleSheet.create({
     container: {
       width,
-      minWidth: isTablet ? 180 : 120,
-      height: htS(isTablet ? 48 : isSmallPhone ? 38 : 42),
+      height: inputHeight,
       justifyContent: "center",
       backgroundColor: colors.selectField.background,
       borderWidth: 1,
       borderColor: colors.selectField.border_clr,
-      borderRadius: rS(isTablet ? 10 : 8),
+      borderRadius: borderRadius,
       overflow: "hidden",
 
       shadowColor: colors.selectField.shadow,
@@ -134,33 +110,37 @@ const getStyles = ({
         height: 1,
       },
       shadowOpacity: focused ? 0.12 : 0.05,
-      shadowRadius: rS(3),
+      shadowRadius: 3,
       elevation: focused ? 3 : 1,
     },
 
     containerFocused: {
       borderColor: colors.selectField.outline_clr,
-      borderWidth: 1.5,
+      borderWidth: 1,
     },
 
     containerDisabled: {
       backgroundColor: colors.selectField.disabled_bg,
       borderColor: colors.selectField.disabled_border,
-      opacity: 0.9,
+      opacity: 0.85,
     },
 
     picker: {
       width: "100%",
       color: colors.selectField.body_text,
       fontFamily: platformFonts.regular,
-      fontSize: fS(isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4),
-      paddingHorizontal: space.sm,
+      fontSize: isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4,
+      paddingHorizontal: spacing.sm3,
       marginLeft: isSmallPhone ? -6 : -2,
     },
 
     itemStyle: {
       fontFamily: platformFonts.regular,
-      fontSize: fS(isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4),
+      fontSize: fontSize,
+    },
+
+    placeholderText: {
+      color: colors.selectField.placeholder,
     },
 
     disabledText: {

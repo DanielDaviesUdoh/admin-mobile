@@ -19,12 +19,18 @@ import RoutingTH from "./RoutingTH";
 import RoutingTRows from "./RoutingTRows";
 
 export default function RoutingScreen() {
+  const initFieldCtryC = {
+    code: "Select country code",
+    name: "Select country code",
+  };
+  const initFieldProv = { provider: "Select provider" };
+
   const [selectedRadioBtn, setSelectedRadioBtn] = useState("country code");
   const [panelHeading, setPanelHeading] = useState(null);
   const [selectedFCtryCode, setSelectedFCtryCode] = useState(null);
-  const [fieldCountryCode, setFieldCountryCode] = useState("");
+  const [fieldCountryCode, setFieldCountryCode] = useState(initFieldCtryC.code);
   const [fieldPhoneOrPrefix, setFieldPhoneOrPrefix] = useState("");
-  const [fieldProvider, setFieldProvider] = useState("");
+  const [fieldProvider, setFieldProvider] = useState(initFieldProv.provider);
   const [endpoint, setEndpoint] = useState("");
   const [qKey, setQKey] = useState(null);
   const [fetchTrigger, setFetchTrigger] = useState(false);
@@ -249,6 +255,8 @@ export default function RoutingScreen() {
         selectedRadioBtn={selectedRadioBtn}
         setSelectedRadioBtn={setSelectedRadioBtn}
         setPanelHeading={setPanelHeading}
+        initFieldCtryC={initFieldCtryC}
+        initFieldProv={initFieldProv}
         setSelectedFCtryCode={setSelectedFCtryCode}
         fieldCountryCode={fieldCountryCode}
         setFieldCountryCode={setFieldCountryCode}
@@ -306,8 +314,6 @@ export default function RoutingScreen() {
         fetchedData={fetchedData}
         qKey={qKey}
         setFetchTrigger={setFetchTrigger}
-        // openAddRoute={openAddRoute}
-        // setOpenAddRoute={setOpenAddRoute}
       />
     </>
   );

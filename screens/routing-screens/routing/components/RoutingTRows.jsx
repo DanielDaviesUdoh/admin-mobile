@@ -1,6 +1,6 @@
 import React from "react";
 import { Pressable, Text, View } from "react-native";
-import { useSectionlistTableStyles } from "./sectionlist-styles";
+import { useSectionlistTableStyles } from "../../../../styles/sectionlist-styles";
 
 export default function RoutingTRows({
   row,

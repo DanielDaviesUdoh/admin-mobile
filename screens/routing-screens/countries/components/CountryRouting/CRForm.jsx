@@ -80,8 +80,8 @@ const CRForm = ({
     <CRFormJSX
       handleSubmit={handleSubmit}
       handleClose={handleClose}
-      initNetPrefix={initNetPrefix}
-      initProv={initProv}
+      networkPrefix={networkPrefix}
+      provider={provider}
       netPrefixDataSet={netPrefixDataSet}
       provDataSet={provDataSet}
       setNetworkPrefix={setNetworkPrefix}

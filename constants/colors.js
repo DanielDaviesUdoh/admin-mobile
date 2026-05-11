@@ -182,18 +182,6 @@ export const colors = {
     shadow: "#000000",
   },
 
-  selectFieldOne: {
-    background: "#FFFFFF",
-    border_clr: "#8C8A8A",
-    outline_clr: "#337ab7",
-    body_text: "#333333",
-    placeholder: "#666666",
-    disabled_bg: "#f2f2f2",
-    disabled_border: "#C2C1C1",
-    disabled_text: "#999999",
-    shadow: "#000000",
-  },
-
   selectField: {
     background: "#FFFFFF",
     border_clr: "#8C8A8A",

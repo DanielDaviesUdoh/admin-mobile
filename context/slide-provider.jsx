@@ -13,12 +13,16 @@ export const SlideContext = createContext();
 export default function SlideProvider({ children }) {
   const [isVisible, setIsVisible] = useState(false);
   const { width } = useWindowDimensions();
-  const { isTablet } = useResponsive();
+  const { isTablet, isLandscape } = useResponsive();
 
   const slideAnim = useRef(new Animated.Value(0)).current;
   const currentAnimation = useRef(null);
 
-  const sidebarWidth = isTablet ? width * 0.35 : width * 0.7;
+  const sidebarWidth = isTablet
+    ? width * 0.35
+    : isLandscape
+      ? width * 0.4
+      : width * 0.7;
   const sidebarTranslateX = slideAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [-sidebarWidth, 0],

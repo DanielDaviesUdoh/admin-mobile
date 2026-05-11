@@ -1,25 +1,10 @@
 import ScreenWrap from "@/components/screen-wrap";
-import { colors } from "@/constants/colors";
-import { platformFonts } from "@/constants/platform";
-import { StyleSheet, Text, View } from "react-native";
+import NetworkListScreen from "@/screens/routing-screens/networklist/components/NetworkList";
 
 export default function Networklist() {
   return (
-    <ScreenWrap pageTitle={"Networklist"}>
-      <View style={styles.container}>
-        <Text style={styles.text}>Networklist contents</Text>
-      </View>
+    <ScreenWrap pageTitle={"Network List"}>
+      <NetworkListScreen />
     </ScreenWrap>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-  },
-  text: {
-    color: colors.body_text,
-    fontSize: 16,
-    fontFamily: platformFonts.regular,
-  },
-});

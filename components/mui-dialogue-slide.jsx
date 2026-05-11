@@ -13,7 +13,7 @@ export default function MuiDialogSlide({
 
   return (
     <RNModal
-      coverScreen={false}
+      coverScreen={true}
       isVisible={isModalOpen}
       animationIn="fadeIn"
       animationOut="fadeOut"
@@ -22,6 +22,7 @@ export default function MuiDialogSlide({
       useNativeDriver
       propagateSwipe
       hideModalContentWhileAnimating
+      avoidKeyboard
       style={styles.modalWrapper}
     >
       <View

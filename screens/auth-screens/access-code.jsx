@@ -23,9 +23,9 @@ export default function AccessCodeScreen() {
   const authorized = auth?.auth;
 
   const { redirect } = useLocalSearchParams();
-  console.log("redirect type:", typeof redirect);
-  console.log("isArray:", Array.isArray(redirect));
-  console.log("value:", redirect);
+  // console.log("redirect type:", typeof redirect);
+  // console.log("isArray:", Array.isArray(redirect));
+  // console.log("value:", redirect);
 
   const sendCodeAbortRef = useRef(null);
   const loginAbortRef = useRef(null);

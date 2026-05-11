@@ -2,7 +2,7 @@ import { useFormStyles } from "@/styles/formStyles";
 import React from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
-import AutocompleteField from "@/components/auto-complete-field";
+import AutocompleteFieldTwo from "@/components/auto-complete-fieldtwo";
 import Feedback from "@/components/feedback";
 import InputFieldOne from "@/components/input-field-one";
 import InputSFieldOne from "@/components/input-sfield-one";
@@ -13,8 +13,8 @@ export default function useCRFormSections(props) {
   const {
     handleSubmit,
     handleClose,
-    initNetPrefix,
-    initProv,
+    networkPrefix,
+    provider,
     netPrefixDataSet,
     provDataSet,
     setNetworkPrefix,
@@ -50,8 +50,8 @@ export default function useCRFormSections(props) {
 
         <View style={styles.crAutoWidth}>
           <View style={styles.textfield}>
-            <AutocompleteField
-              initialValue={initNetPrefix}
+            <AutocompleteFieldTwo
+              value={networkPrefix}
               dataSet={netPrefixDataSet}
               onChange={(v) => setNetworkPrefix(v)}
             />
@@ -103,8 +103,8 @@ export default function useCRFormSections(props) {
 
           <View style={styles.crAutoWidth}>
             <View style={styles.textfield}>
-              <AutocompleteField
-                initialValue={initProv.provider}
+              <AutocompleteFieldTwo
+                value={provider}
                 dataSet={provDataSet}
                 onChange={(v) => setProvider(v)}
               />

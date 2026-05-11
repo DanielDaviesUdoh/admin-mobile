@@ -3,8 +3,10 @@ import Loading from "@/components/loading";
 import MuiDialogSlide from "@/components/mui-dialogue-slide";
 import RouteLinks from "@/components/route-links/RouteLinks";
 import { getHrefModal } from "@/constants/hrefModal";
+import { useSubScreenStyles } from "@/styles/subScreenStyles";
 import { useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
+import { View } from "react-native";
 import { useRoutingCountries } from "../../../../../hooks/useRoutingShared";
 import { COLUMNS_CN } from "../../constants/countriesTHead";
 import { useNetworksByCountryCode } from "../../hooks/useCtryNet";
@@ -16,6 +18,7 @@ const CountryNetworksScreen = () => {
     ctryNetworks: { open: false, linkText: "" },
   });
   const { CountryCode: countryCode } = useLocalSearchParams();
+  const styles = useSubScreenStyles();
 
   const { data, isLoading, isError, statusCode } =
     useNetworksByCountryCode(countryCode);
@@ -33,17 +36,19 @@ const CountryNetworksScreen = () => {
   const handleClose = closeModal("ctryNetworks");
 
   return (
-    <>
+    <View style={styles.cont}>
       {isLoading && <Loading />}
       {isError && <FeedbackTwo statusCode={statusCode} />}
       {!isError && data && (
-        <CountryTable
-          panelHeading={`${countryName ? countryName : ""} Network(s)`}
-          data={data}
-          columns={COLUMNS_CN}
-          captionError={"network"}
-          handleHrefCtryNetworks={handleHref("ctryNetworks")}
-        />
+        <View style={styles.tableCont}>
+          <CountryTable
+            panelHeading={`${countryName ? countryName : ""} Network(s)`}
+            data={data}
+            columns={COLUMNS_CN}
+            captionError={"network"}
+            handleHrefCtryNetworks={handleHref("ctryNetworks")}
+          />
+        </View>
       )}
       <RouteLinks
         navObject={"countries"}
@@ -64,7 +69,7 @@ const CountryNetworksScreen = () => {
           handleClose={handleClose}
         />
       )}
-    </>
+    </View>
   );
 };
 

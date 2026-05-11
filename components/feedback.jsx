@@ -3,28 +3,16 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { colors } from "@/constants/colors";
 import { statusMessages } from "@/constants/feedback";
-import { getSpacing } from "@/constants/spacing";
+import { spacing } from "@/constants/spacing";
 import { typo } from "@/constants/typo";
 import { useResponsive } from "@/hooks/useResponsive";
 
 export default function Feedback({ statusCode, align = "center" }) {
-  const { isSmallPhone, isTablet, isLandscape, fS, sS, rS } = useResponsive();
-
-  const space = getSpacing({
-    sS,
-    isSmallPhone,
-    isTablet,
-    isLandscape,
-  });
+  const { isSmallPhone, isTablet } = useResponsive();
 
   const styles = getStyles({
-    colors,
-    typo,
-    space,
     isSmallPhone,
     isTablet,
-    fS,
-    rS,
   });
 
   const feedback = statusMessages[statusCode] || {
@@ -52,21 +40,21 @@ export default function Feedback({ statusCode, align = "center" }) {
   );
 }
 
-const getStyles = ({ colors, typo, space, isSmallPhone, isTablet, fS, rS }) => {
+const getStyles = ({ isSmallPhone, isTablet }) => {
   return StyleSheet.create({
     container: {
       width: "100%",
-      marginVertical: space.sm,
+      marginVertical: spacing.sm2,
     },
 
     alert: {
       width: isTablet ? "80%" : "100%",
       maxWidth: isTablet ? 720 : "100%",
-      paddingVertical: isSmallPhone ? space.sm : space.md,
-      paddingHorizontal: space.md,
-      borderRadius: rS(isTablet ? 14 : 10),
+      paddingVertical: isSmallPhone ? spacing.sm2 : spacing.md2,
+      paddingHorizontal: spacing.md2,
+      borderRadius: isTablet ? 14 : 10,
       borderWidth: 1,
-      borderLeftWidth: rS(4),
+      borderLeftWidth: 4,
 
       shadowColor: colors.feedback.shadow,
       shadowOffset: {
@@ -74,19 +62,19 @@ const getStyles = ({ colors, typo, space, isSmallPhone, isTablet, fS, rS }) => {
         height: 2,
       },
       shadowOpacity: 0.08,
-      shadowRadius: rS(4),
+      shadowRadius: 4,
       elevation: 2,
     },
 
     title: {
-      fontSize: fS(isTablet ? typo.t6 : isSmallPhone ? typo.t4 : typo.t5),
+      fontSize: isTablet ? typo.t6 : isSmallPhone ? typo.t4 : typo.t5,
       fontWeight: "700",
-      marginBottom: space.xxs,
+      marginBottom: spacing.xs2,
     },
 
     message: {
-      fontSize: fS(isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4),
-      lineHeight: fS(isTablet ? typo.t6 : isSmallPhone ? typo.t4 : typo.t5),
+      fontSize: isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4,
+      lineHeight: isTablet ? typo.t6 : isSmallPhone ? typo.t4 : typo.t5,
       fontWeight: "500",
     },
 

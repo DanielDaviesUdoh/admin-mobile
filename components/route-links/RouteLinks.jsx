@@ -1,10 +1,8 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-
-import { colors } from "@/constants/colors";
-import { getSpacing } from "@/constants/spacing";
+import { spacing } from "@/constants/spacing";
 import { useResponsive } from "@/hooks/useResponsive";
 import { countriesNavObject } from "@/screens/routing-screens/countries/constants/countriesNavObject";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 
 import Links from "./Links";
 
@@ -18,18 +16,9 @@ const selectNavObject = (navObject) => {
 const RouteLinks = ({ navObject, sParamsName, sParams }) => {
   const data = selectNavObject(navObject);
 
-  const { sS, rS, isSmallPhone, isTablet, isLandscape } = useResponsive();
-
-  const spacing = getSpacing({
-    sS,
-    isSmallPhone,
-    isTablet,
-    isLandscape,
-  });
+  const { isSmallPhone, isTablet, isLandscape } = useResponsive();
 
   const styles = getStyles({
-    spacing,
-    rS,
     isSmallPhone,
     isTablet,
     isLandscape,
@@ -51,7 +40,7 @@ const RouteLinks = ({ navObject, sParamsName, sParams }) => {
 
 export default RouteLinks;
 
-const getStyles = ({ spacing, rS, isSmallPhone, isTablet, isLandscape }) =>
+const getStyles = ({ isSmallPhone, isTablet, isLandscape }) =>
   StyleSheet.create({
     container: {
       flexDirection: "row",
@@ -64,32 +53,26 @@ const getStyles = ({ spacing, rS, isSmallPhone, isTablet, isLandscape }) =>
           ? "flex-start"
           : "flex-start",
 
-      marginVertical: spacing.xxs,
+      marginTop: spacing.xs3,
 
       paddingHorizontal: isSmallPhone
-        ? spacing.xxxs
+        ? spacing.xs1
         : isTablet
-          ? spacing.md
-          : spacing.xs,
+          ? spacing.sm3
+          : spacing.sm1,
 
       paddingVertical: isTablet
-        ? spacing.sm
+        ? spacing.sm2
         : isLandscape
-          ? spacing.xs
-          : spacing.xxxs,
+          ? spacing.xs2
+          : spacing.sm1,
 
-      rowGap: isTablet ? spacing.sm : isLandscape ? spacing.xs : spacing.xxs,
+      rowGap: isTablet ? spacing.sm1 : isLandscape ? spacing.xs2 : spacing.xs3,
 
-      columnGap: isTablet ? spacing.sm : isLandscape ? spacing.xs : spacing.xxs,
-
-      backgroundColor: colors.routeLinks.offWhite,
-
-      borderRadius: rS(isTablet ? 12 : isLandscape ? 8 : 6),
-
-      borderWidth: 1,
-      borderColor: colors.routeLinks.border_clr,
-
-      width: "100%",
-      alignSelf: "stretch",
+      columnGap: isTablet
+        ? spacing.sm1
+        : isLandscape
+          ? spacing.xs1
+          : spacing.xs2,
     },
   });

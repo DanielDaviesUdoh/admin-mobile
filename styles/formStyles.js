@@ -1,64 +1,39 @@
 import { colors } from "@/constants/colors";
 import { platformFonts } from "@/constants/platform";
-import { getSpacing } from "@/constants/spacing";
+import { spacing } from "@/constants/spacing";
 import { typo } from "@/constants/typo";
 import { useResponsive } from "@/hooks/useResponsive";
 import { useMemo } from "react";
 import { StyleSheet } from "react-native";
 
 export const useFormStyles = () => {
-  const { fS, sS, rS, isTablet, isSmallPhone, isLandscape } = useResponsive();
-
-  const spacing = useMemo(
-    () =>
-      getSpacing({
-        sS,
-        isSmallPhone,
-        isTablet,
-        isLandscape,
-      }),
-    [sS, isSmallPhone, isTablet, isLandscape],
-  );
+  const { isTablet, isSmallPhone, isLandscape } = useResponsive();
 
   return useMemo(() => {
-    const titleFontSize = isTablet
-      ? fS(typo.t7)
-      : isSmallPhone
-        ? fS(typo.t5, 0.15)
-        : fS(typo.t6);
+    const titleFontSize = isTablet ? typo.t7 : isSmallPhone ? typo.t5 : typo.t6;
 
-    const labelFontSize = isTablet
-      ? fS(typo.t5)
-      : isSmallPhone
-        ? fS(typo.t3, 0.15)
-        : fS(typo.t4);
+    const labelFontSize = isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4;
 
     const buttonFontSize = isTablet
-      ? fS(typo.t5)
+      ? typo.t5
       : isSmallPhone
-        ? fS(typo.t3, 0.15)
-        : fS(typo.t4);
+        ? typo.t3
+        : typo.t4;
 
     const closeFontSize = isTablet
-      ? fS(typo.t11)
+      ? typo.t11
       : isSmallPhone
-        ? fS(typo.t9, 0.15)
-        : fS(typo.t10);
+        ? typo.t9
+        : typo.t10;
 
     return StyleSheet.create({
-      /* =======================
-         Form Container
-      ======================== */
       formCont: {
         width: "100%",
       },
 
-      /* =======================
-         Header
-      ======================== */
       formHeader: {
-        paddingVertical: isTablet ? spacing.lg : spacing.md,
-        paddingHorizontal: isTablet ? spacing.lg : spacing.md,
+        paddingVertical: isTablet ? spacing.md3 : spacing.md1,
+        paddingHorizontal: isTablet ? spacing.md3 : spacing.md1,
         borderBottomWidth: 1,
         borderBottomColor: colors.formStyles.border_clr,
         flexDirection: "row",
@@ -68,7 +43,7 @@ export const useFormStyles = () => {
 
       title: {
         flex: 1,
-        paddingRight: spacing.sm,
+        paddingRight: spacing.sm3,
         fontSize: titleFontSize,
         lineHeight: titleFontSize * 1.25,
         fontFamily: platformFonts.medium,
@@ -84,20 +59,17 @@ export const useFormStyles = () => {
         includeFontPadding: false, // Android
       },
 
-      /* =======================
-         Body
-      ======================== */
       formBody: {
-        paddingTop: isTablet ? spacing.xl : spacing.lg,
-        paddingBottom: spacing.lg,
-        paddingLeft: isTablet ? spacing.lg : spacing.md,
-        paddingRight: isLandscape ? spacing.sm : 0,
+        paddingTop: isTablet ? spacing.md2 : spacing.sm3,
+        paddingBottom: spacing.sm3,
+        paddingLeft: isTablet ? spacing.sm3 : spacing.sm3,
+        paddingRight: isLandscape ? spacing.sm1 : 0,
       },
 
       formGroup: {
         flexDirection: "column",
-        rowGap: spacing.sm,
-        marginBottom: spacing.md,
+        rowGap: spacing.xs2,
+        marginBottom: spacing.md1,
       },
 
       controlLabel: {
@@ -105,27 +77,34 @@ export const useFormStyles = () => {
         lineHeight: labelFontSize * 1.3,
         fontFamily: platformFonts.bold,
         color: colors.formStyles.body_text,
-        includeFontPadding: false, // Android
+        includeFontPadding: false,
       },
 
       widthAdjust: {
-        maxWidth: isTablet ? sS(110) : sS(80),
+        maxWidth: isTablet ? 110 : 80,
       },
 
       widthAdjustOne: {
-        maxWidth: isTablet ? sS(100) : sS(75),
+        maxWidth: isTablet ? 100 : 75,
       },
 
       textfield: {
-        width: isTablet ? (isLandscape ? "75%" : "85%") : "90%",
-        maxWidth: isTablet ? sS(420) : sS(280),
+        width: isTablet ? 310 : isSmallPhone ? undefined : 250,
       },
 
       addNumRouting: {
         flexDirection: isSmallPhone ? "column" : "row",
         alignItems: isSmallPhone ? "flex-start" : "center",
-        columnGap: spacing.xs,
-        rowGap: spacing.xs,
+        columnGap: spacing.xs1,
+        rowGap: spacing.xs1,
+      },
+
+      addNumRW: {
+        width: 85,
+      },
+
+      addNumRWTwo: {
+        width: isTablet ? 220 : isSmallPhone ? undefined : 162.5,
       },
 
       showPrefixGroup: {
@@ -139,22 +118,19 @@ export const useFormStyles = () => {
         textAlign: "center",
       },
 
-      /* =======================
-         Footer
-      ======================== */
       formFooter: {
-        paddingVertical: spacing.sm,
+        paddingVertical: spacing.sm2,
         paddingHorizontal: isTablet ? spacing.lg : spacing.md,
         borderTopWidth: 1,
         borderTopColor: colors.formStyles.border_clr,
-        alignItems: isSmallPhone ? "stretch" : "flex-end",
+        alignItems: "flex-end",
       },
 
       submit: {
-        minWidth: isTablet ? sS(120) : sS(96),
-        borderRadius: rS(isTablet ? 8 : 6),
-        paddingVertical: isTablet ? spacing.sm : spacing.xs,
-        paddingHorizontal: isTablet ? spacing.lg : spacing.md,
+        minWidth: isTablet ? 90 : 80,
+        borderRadius: isTablet ? 8 : 6,
+        paddingVertical: isTablet ? spacing.sm2 : spacing.sm1,
+        paddingHorizontal: isTablet ? spacing.md2 : spacing.xs3,
         alignItems: "center",
         justifyContent: "center",
       },
@@ -165,12 +141,9 @@ export const useFormStyles = () => {
         lineHeight: buttonFontSize * 1.2,
         fontFamily: platformFonts.medium,
         textTransform: "capitalize",
-        includeFontPadding: false, // Android
+        includeFontPadding: false,
       },
 
-      /* =======================
-         Button Variants
-      ======================== */
       post: {
         backgroundColor: colors.formStyles.green,
         borderWidth: 1,
@@ -192,6 +165,9 @@ export const useFormStyles = () => {
       disabled: {
         opacity: 0.6,
       },
+      longLabel: {
+        maxWidth: 100,
+      },
     });
-  }, [fS, sS, rS, spacing, isTablet, isSmallPhone, isLandscape]);
+  }, [isTablet, isSmallPhone, isLandscape]);
 };

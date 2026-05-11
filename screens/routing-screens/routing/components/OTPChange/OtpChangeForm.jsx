@@ -25,7 +25,9 @@ const OtpChangeForm = ({
     provider,
   } = fieldsObjects ?? {};
 
-  const [providerChange, setProviderChange] = useState("");
+  const initProv = { provider: "Select" };
+
+  const [providerChange, setProviderChange] = useState(initProv.provider);
   const [showStatus, setShowStatus] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
 
@@ -33,7 +35,11 @@ const OtpChangeForm = ({
     linkTextOtpChange,
     provider,
   );
-  const otpProvDataSet = genDotDataSet(activeProviders, "provider");
+
+  const otpProvDataSet =
+    activeProviders && activeProviders?.length > 0
+      ? genDotDataSet([initProv, ...activeProviders], "provider")
+      : genDotDataSet([initProv], "provider");
 
   const queryClient = useQueryClient();
   const { mutate, statusCode } = usePostRoutingSubmitChngOtpProv(
@@ -41,6 +47,7 @@ const OtpChangeForm = ({
     qKey,
     setFetchTrigger,
     handleClose,
+    initProv,
     setProviderChange,
     setShowStatus,
     setShowProgress,
@@ -63,6 +70,7 @@ const OtpChangeForm = ({
       network={network}
       mccmnc={mccmnc}
       prefix={prefix}
+      initProv={initProv}
       otpProvDataSet={otpProvDataSet}
       providerChange={providerChange}
       setProviderChange={setProviderChange}

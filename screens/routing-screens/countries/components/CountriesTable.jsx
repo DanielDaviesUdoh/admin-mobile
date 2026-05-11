@@ -1,20 +1,13 @@
 import { useTablePanelStyles } from "@/styles/tablePanelStyles";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef } from "react";
-import {
-  FlatList,
-  Pressable,
-  ScrollView,
-  Text,
-  View
-} from "react-native";
+import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 
 export default function CountriesTable({
   panelHeading,
   data,
   columns,
   currentPage,
-  PaginationComponent,
 }) {
   const styles = useTablePanelStyles();
   const router = useRouter();
@@ -81,14 +74,17 @@ export default function CountriesTable({
       >
         <View>
           {renderHeader()}
-          <View style={{ maxHeight: 450 }}>
+          <View>
             <FlatList
               ref={flatListRef}
               data={data}
               keyExtractor={(_, index) => index.toString()}
               renderItem={renderItem}
-              ListFooterComponent={PaginationComponent || null}
               showsVerticalScrollIndicator={true}
+              initialNumToRender={20}
+              maxToRenderPerBatch={20}
+              windowSize={10}
+              removeClippedSubviews
             />
           </View>
         </View>

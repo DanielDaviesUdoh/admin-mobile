@@ -47,10 +47,10 @@ export default function SelectFieldOne({
         mode="dropdown"
         dropdownIconColor={
           disabled
-            ? colors.selectFieldOne.disabled_text
+            ? colors.selectField.disabled_text
             : focused
-              ? colors.selectFieldOne.outline_clr
-              : colors.selectFieldOne.body_text
+              ? colors.selectField.outline_clr
+              : colors.selectField.body_text
         }
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
@@ -79,13 +79,13 @@ const getStyles = ({ width, focused, item, isSmallPhone, isTablet }) => {
       width,
       height: inputHeight,
       justifyContent: "center",
-      backgroundColor: colors.selectFieldOne.background,
+      backgroundColor: colors.selectField.background,
       borderWidth: 1,
-      borderColor: colors.selectFieldOne.border_clr,
+      borderColor: colors.selectField.border_clr,
       borderRadius: borderRadius,
       overflow: "hidden",
 
-      shadowColor: colors.selectFieldOne.shadow,
+      shadowColor: colors.selectField.shadow,
       shadowOffset: {
         width: 0,
         height: 1,
@@ -96,21 +96,21 @@ const getStyles = ({ width, focused, item, isSmallPhone, isTablet }) => {
     },
 
     containerFocused: {
-      borderColor: colors.selectFieldOne.outline_clr,
+      borderColor: colors.selectField.outline_clr,
       borderWidth: 1,
     },
 
     containerDisabled: {
-      backgroundColor: colors.selectFieldOne.disabled_bg,
-      borderColor: colors.selectFieldOne.disabled_border,
+      backgroundColor: colors.selectField.disabled_bg,
+      borderColor: colors.selectField.disabled_border,
       opacity: 0.85,
     },
 
     picker: {
       width: "100%",
       color: item
-        ? colors.selectFieldOne.body_text
-        : colors.selectFieldOne.placeholder,
+        ? colors.selectField.body_text
+        : colors.selectField.placeholder,
       fontFamily: platformFonts.regular,
       fontSize: isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4,
       paddingHorizontal: spacing.sm3,
@@ -123,11 +123,11 @@ const getStyles = ({ width, focused, item, isSmallPhone, isTablet }) => {
     },
 
     placeholderText: {
-      color: colors.selectFieldOne.placeholder,
+      color: colors.selectField.placeholder,
     },
 
     disabledText: {
-      color: colors.selectFieldOne.disabled_text,
+      color: colors.selectField.disabled_text,
     },
   });
 };

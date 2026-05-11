@@ -3,40 +3,31 @@ import { StyleSheet } from "react-native";
 
 import { colors } from "@/constants/colors";
 import { platformFonts } from "@/constants/platform";
-import { getSpacing } from "@/constants/spacing";
+import { spacing } from "@/constants/spacing";
 import { typo } from "@/constants/typo";
 import { useResponsive } from "@/hooks/useResponsive";
 
 export const useTablePanelStyles = () => {
-  const { isSmallPhone, isTablet, isLandscape, fS, sS, rS } = useResponsive();
-
-  const space = getSpacing({
-    sS,
-    isSmallPhone,
-    isTablet,
-    isLandscape,
-  });
+  const { isSmallPhone, isTablet } = useResponsive();
 
   return useMemo(() => {
-    const borderRadius = rS(isTablet ? 10 : 6);
+    const borderRadius = isTablet ? 10 : 6;
 
-    const headingFontSize = fS(
-      isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4,
-    );
-
-    const bodyFontSize = fS(
-      isTablet ? typo.t4 : isSmallPhone ? typo.t2 : typo.t3,
-    );
-
-    const buttonFontSize = fS(
-      isTablet ? typo.t3 : isSmallPhone ? typo.t1 : typo.t2,
-    );
-
+    const headingFontSize = isTablet
+      ? typo.t5
+      : isSmallPhone
+        ? typo.t3
+        : typo.t4;
+    const bodyFontSize = isTablet ? typo.t4 : isSmallPhone ? typo.t2 : typo.t3;
+    const buttonFontSize = isTablet
+      ? typo.t3
+      : isSmallPhone
+        ? typo.t1
+        : typo.t2;
     return StyleSheet.create({
-      /* ---------- PANEL ---------- */
       panel: {
-        width: "100%",
-        marginBottom: space.lg,
+        alignSelf: "flex-start",
+        marginBottom: spacing.md3,
         backgroundColor: colors.tablePanel.panel_bg,
         borderRadius: borderRadius,
         borderWidth: 1,
@@ -49,7 +40,7 @@ export const useTablePanelStyles = () => {
           height: 1,
         },
         shadowOpacity: 0.15,
-        shadowRadius: rS(3),
+        shadowRadius: 3,
         elevation: 2,
       },
 
@@ -58,8 +49,8 @@ export const useTablePanelStyles = () => {
       },
 
       panelHeading: {
-        paddingVertical: isTablet ? space.sm : space.xs,
-        paddingHorizontal: isTablet ? space.md : space.sm,
+        paddingVertical: isTablet ? spacing.sm2 : spacing.sm1,
+        paddingHorizontal: isTablet ? spacing.sm2 : spacing.sm1,
         backgroundColor: colors.tablePanel.heading_bg,
         borderTopLeftRadius: borderRadius,
         borderTopRightRadius: borderRadius,
@@ -79,7 +70,7 @@ export const useTablePanelStyles = () => {
 
       row: {
         flexDirection: "row",
-        minHeight: isTablet ? sS(42) : isSmallPhone ? sS(32) : sS(36),
+        minHeight: isTablet ? 38 : isSmallPhone ? 32 : 36,
         alignItems: "center",
         borderBottomWidth: 1,
         borderBottomColor: colors.tablePanel.row_border,
@@ -92,8 +83,8 @@ export const useTablePanelStyles = () => {
       /* ---------- CELLS ---------- */
       cell: {
         justifyContent: "center",
-        paddingHorizontal: isTablet ? space.md : space.sm,
-        paddingVertical: isTablet ? space.sm : space.xs,
+        paddingHorizontal: isTablet ? spacing.md1 : spacing.sm3,
+        paddingVertical: isTablet ? spacing.sm1 : spacing.xs2,
       },
 
       thText: {
@@ -117,8 +108,8 @@ export const useTablePanelStyles = () => {
       },
 
       emptyText: {
-        paddingHorizontal: isTablet ? space.md : space.sm,
-        paddingVertical: isTablet ? space.md : space.sm,
+        paddingVertical: isTablet ? spacing.sm2 : spacing.sm1,
+        paddingHorizontal: isTablet ? spacing.sm2 : spacing.sm1,
         fontSize: headingFontSize,
         color: colors.tablePanel.empty_text,
         fontFamily: platformFonts.regular,
@@ -126,11 +117,11 @@ export const useTablePanelStyles = () => {
 
       buttonCont: {
         alignSelf: "flex-start",
-        minHeight: isTablet ? sS(34) : sS(28),
+        minHeight: isTablet ? 34 : 28,
         justifyContent: "center",
-        paddingVertical: isTablet ? space.xs : space.xxs,
-        paddingHorizontal: isTablet ? space.sm : space.xs,
-        borderRadius: rS(isTablet ? 6 : 4),
+        paddingVertical: isTablet ? spacing.xs2 : spacing.xs1,
+        paddingHorizontal: isTablet ? spacing.sm2 : spacing.sm1,
+        borderRadius: isTablet ? 6 : 4,
         backgroundColor: colors.tablePanel.button_bg,
       },
 
@@ -145,6 +136,84 @@ export const useTablePanelStyles = () => {
         fontFamily: platformFonts.regular,
         lineHeight: buttonFontSize * 1.2,
       },
+
+      headerCellSsmSQ: {
+        flexShrink: 0,
+      },
+
+      totalContainerSsmSQ: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+      },
+
+      timerTextSsmSQ: {
+        color: "blue",
+      },
+      /* ---------- SENDER IDR TABLE ---------- */
+
+      defaultHeaderCell: {
+        minWidth: 140,
+      },
+
+      actionHeaderCell: {
+        minWidth: 220,
+      },
+
+      defaultCell: {
+        minWidth: 140,
+      },
+
+      actionCell: {
+        minWidth: 220,
+      },
+
+      actionContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+        flexWrap: "wrap",
+      },
+
+      actionButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 4,
+        paddingVertical: isTablet ? spacing.xs2 : spacing.xs1,
+        paddingHorizontal: isTablet ? spacing.sm1 : spacing.xs2,
+        borderRadius: isTablet ? 6 : 4,
+      },
+
+      actionButtonPressed: {
+        opacity: 0.7,
+        transform: [{ scale: 0.97 }],
+      },
+
+      editButton: {
+        backgroundColor: colors.tablePanel.even_row_bg,
+      },
+
+      deleteButton: {
+        backgroundColor: colors.tablePanel.even_row_bg,
+      },
+
+      editButtonText: {
+        color: "#3F51B5",
+        fontSize: buttonFontSize,
+        fontFamily: platformFonts.regular,
+      },
+
+      deleteButtonText: {
+        color: "#EF4444",
+        fontSize: buttonFontSize,
+        fontFamily: platformFonts.regular,
+      },
+
+      feedbackText: {
+        fontSize: buttonFontSize,
+        color: colors.tablePanel.body_text,
+        fontFamily: platformFonts.regular,
+      },
     });
-  }, [isSmallPhone, isTablet, fS, sS, rS, space]);
+  }, [isSmallPhone, isTablet]);
 };

@@ -24,13 +24,16 @@ const AddNumRForm = ({
   const prefixesArray = objectArray?.map((obj) => obj["network_prefix"]);
   const uniquePrefixes = prefixesArray && [...new Set(prefixesArray)];
 
-  const [provider, setProvider] = useState("");
-  const [prefixes, setPrefixes] = useState("");
+  const initProv = { provider: "Select" };
+  const initPrefix = "Select";
+
+  const [provider, setProvider] = useState(initProv.provider);
+  const [prefixes, setPrefixes] = useState(initPrefix);
   const [extraPrefix, setExtraPrefix] = useState("");
   const [showStatus, setShowStatus] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
 
-  const selectedPrefix = prefixes.trim() ? prefixes : "";
+  const selectedPrefix = prefixes !== initPrefix ? prefixes : "";
   const mobile = selectedPrefix + extraPrefix;
 
   const queryClient = useQueryClient();
@@ -41,14 +44,23 @@ const AddNumRForm = ({
     qKey,
     setFetchTrigger,
     handleClose,
+    initProv,
+    initPrefix,
     setPrefixes,
     setProvider,
     setShowStatus,
     setShowProgress,
   );
 
-  const provBankRDataSet = genDotDataSet(activePData, "provider");
-  const prefixesDataSet = genDataSet(uniquePrefixes);
+  const provBankRDataSet =
+    activePData && activePData?.length > 0
+      ? genDotDataSet([initProv, ...activePData], "provider")
+      : genDotDataSet([initProv], "provider");
+
+  const prefixesDataSet =
+    uniquePrefixes && uniquePrefixes?.length > 0
+      ? genDataSet([initPrefix, ...uniquePrefixes])
+      : genDataSet([initPrefix]);
 
   const defaultCtryMaxLength = countriesData?.find(
     (ctry) => ctry.code === objectType?.country,
@@ -73,6 +85,7 @@ const AddNumRForm = ({
   return (
     <AddNumRFormJSX
       handleSubmit={handleSubmit}
+      initProv={initProv}
       prefixes={prefixes}
       setPrefixes={setPrefixes}
       prefixesDataSet={prefixesDataSet}

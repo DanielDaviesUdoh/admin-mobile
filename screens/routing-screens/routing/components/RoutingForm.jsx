@@ -20,6 +20,8 @@ export default function RoutingForm(props) {
     selectedRadioBtn,
     setSelectedRadioBtn,
     setPanelHeading,
+    initFieldCtryC,
+    initFieldProv,
     setSelectedFCtryCode,
     fieldCountryCode,
     setFieldCountryCode,
@@ -36,14 +38,25 @@ export default function RoutingForm(props) {
 
   const { data: countryCode } = useRoutingCountries();
   const { data: provider } = useRoutingActiveProviders();
-  const ctryDataSet = genCtryDataSet(countryCode);
-  const provDataSet = genDotDataSet(provider, "provider");
+
+  // console.log({ countryCode });
+
+  const ctryDataSet =
+    countryCode && countryCode?.length > 0
+      ? genCtryDataSet([initFieldCtryC, ...countryCode])
+      : genCtryDataSet([initFieldCtryC]);
+  const provDataSet =
+    provider && provider?.length > 0
+      ? genDotDataSet([initFieldProv, ...provider], "provider")
+      : genDotDataSet([initFieldProv], "provider");
 
   const disableFetchBtn = getDisableFetchBtn(
     selectedRadioBtn,
     fieldCountryCode,
+    initFieldCtryC,
     fieldPhoneOrPrefix,
     fieldProvider,
+    initFieldProv,
   );
   const handleSelectFocus = getHandleSelectFocus(setSelectedRadioBtn);
   const handleTextFocus = getHandleTextFocus(setSelectedRadioBtn);
