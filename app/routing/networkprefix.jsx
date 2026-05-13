@@ -1,25 +1,10 @@
 import ScreenWrap from "@/components/screen-wrap";
-import { colors } from "@/constants/colors";
-import { platformFonts } from "@/constants/platform";
-import { StyleSheet, Text, View } from "react-native";
+import NetworkPrefixScreen from "@/screens/routing-screens/networkprefix/components/NetworkPrefix";
 
 export default function NetworkPrefix() {
   return (
-    <ScreenWrap pageTitle={"NetworkPrefix"}>
-      <View style={styles.container}>
-        <Text style={styles.text}>NetworkPrefix contents</Text>
-      </View>
+    <ScreenWrap pageTitle={"Network Prefix"}>
+      <NetworkPrefixScreen />
     </ScreenWrap>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-  },
-  text: {
-    color: colors.body_text,
-    fontSize: 16,
-    fontFamily: platformFonts.regular,
-  },
-});

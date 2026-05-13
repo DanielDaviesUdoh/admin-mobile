@@ -12,6 +12,7 @@ export const useTablePanelStyles = () => {
 
   return useMemo(() => {
     const borderRadius = isTablet ? 10 : 6;
+    const iconSize = isTablet ? 16 : isSmallPhone ? 12 : 14;
 
     const headingFontSize = isTablet
       ? typo.t5
@@ -25,6 +26,7 @@ export const useTablePanelStyles = () => {
         ? typo.t1
         : typo.t2;
     return StyleSheet.create({
+      iconSize,
       panel: {
         alignSelf: "flex-start",
         marginBottom: spacing.md3,

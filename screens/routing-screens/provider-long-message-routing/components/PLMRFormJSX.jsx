@@ -1,9 +1,9 @@
 import React from "react";
 import { FlatList } from "react-native";
-import useSIDRFormSections from "./sidrFormSections";
+import usePLMRFormSections from "./plmrFormSections";
 
 export default function SIDRFormJSX(props) {
-  const data = useSIDRFormSections(props);
+  const data = usePLMRFormSections(props);
 
   return (
     <FlatList

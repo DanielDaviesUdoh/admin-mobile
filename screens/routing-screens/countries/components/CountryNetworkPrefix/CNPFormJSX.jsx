@@ -35,7 +35,7 @@ export default function CNPFormJSX(props) {
 
   return (
     <FlatList
-      contentContainerStyle={{ paddingBottom: 24 }}
+      contentContainerStyle={{ paddingBottom: 12 }}
       data={data}
       keyExtractor={(item) => item.key}
       renderItem={({ item }) => item.element}

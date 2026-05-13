@@ -1,38 +1,36 @@
 import React from "react";
 import { FlatList } from "react-native";
-import useCNFormSections from "./cnFormSections";
+import useNetworkPFormSections from "./networkpFormSections";
 
-export default function CNFormJSX(props) {
+export default function NPAddFormJSX(props) {
   const {
     handleSubmit,
     handleClose,
-    countryName,
-    mcc,
-    networkName,
-    nCode,
-    setNCode,
-    nName,
-    setNName,
+    linkTextAddPrefix,
+    prefix,
+    setPrefix,
     enableButton,
     statusCode,
     showStatus,
     showProgress,
+    ctryCode,
+    maxLength,
+    networkLabel,
   } = props;
 
-  const data = useCNFormSections({
+  const data = useNetworkPFormSections({
     handleSubmit,
     handleClose,
-    countryName,
-    mcc,
-    networkName,
-    nCode,
-    setNCode,
-    nName,
-    setNName,
+    prefix,
+    setPrefix,
     enableButton,
     statusCode,
     showStatus,
     showProgress,
+    networkLabel,
+    linkTextAddPrefix,
+    ctryCode,
+    maxLength,
   });
 
   return (

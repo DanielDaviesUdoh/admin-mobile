@@ -38,12 +38,12 @@ const ProvChangeForm = ({
   const { data: changeReasons } = useRoutingChngReason();
 
   const provDataSet =
-    changeProviders && changeProviders?.length > 0
+    changeProviders?.length > 0
       ? genDotDataSet([initProv, ...changeProviders], "provider")
       : genDotDataSet([initProv], "provider");
 
   const reasonDataSet =
-    changeReasons && changeReasons?.length > 0
+    changeReasons?.length > 0
       ? genDotDataSet([initReason, ...changeReasons], "code")
       : genDotDataSet([initReason], "code");
 

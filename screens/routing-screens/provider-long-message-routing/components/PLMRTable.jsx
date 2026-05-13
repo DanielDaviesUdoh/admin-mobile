@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 
-const SenderIDRTable = ({
+const PLMRTable = ({
   panelHeading,
   data,
   columns,
@@ -43,10 +43,8 @@ const SenderIDRTable = ({
       }));
 
       const params = {
-        clientId: object["clientId"],
-        mccmnc: object["mccmnc"],
         provider: object["provider"],
-        senderId: object["senderId"],
+        mccmnc: object["mccmnc"],
       };
       handleDelete(params);
     }
@@ -64,7 +62,7 @@ const SenderIDRTable = ({
               ]}
               onPress={handleOpenAdd}
             >
-              <Text style={styles.buttonText}>Add Sender ID</Text>
+              <Text style={styles.buttonText}>Add Long Message Provider</Text>
             </Pressable>
           ) : (
             <Text style={styles.thText}>{column.th}</Text>
@@ -84,11 +82,10 @@ const SenderIDRTable = ({
         ]}
         onPress={() =>
           handleOpenEdit(
-            item.clientId,
-            item.senderId,
             item.provider,
+            item.over_160_char_provider,
             item.mccmnc,
-            item.toSender,
+            item.msg_len,
           )
         }
       >
@@ -174,4 +171,4 @@ const SenderIDRTable = ({
   );
 };
 
-export default SenderIDRTable;
+export default PLMRTable;

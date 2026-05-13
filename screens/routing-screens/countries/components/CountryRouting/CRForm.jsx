@@ -49,12 +49,15 @@ const CRForm = ({
   const nPrefix = ctryNetworks?.map((obj) => obj["network_prefix"]);
   const uniqueNPrefix = nPrefix && [...new Set(nPrefix)];
 
-  const netPrefixData = [initNetPrefix, ...uniqueNPrefix];
-  const provData = [initProv, ...providerData];
+  const netPrefixDataSet =
+    uniqueNPrefix?.length > 0
+      ? genDataSet([initNetPrefix, ...uniqueNPrefix])
+      : genDataSet([initNetPrefix]);
 
-  const netPrefixDataSet = genDataSet(netPrefixData);
-  const provDataSet = genDotDataSet(provData, "provider");
-
+  const provDataSet =
+    providerData?.length > 0
+      ? genDotDataSet([initProv, ...providerData], "provider")
+      : genDotDataSet([initProv], "provider");
   const defaultCtryMaxLength = countriesData?.find(
     (ctry) => ctry.code === countryCode,
   )?.phonelen;

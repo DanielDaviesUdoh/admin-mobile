@@ -6,42 +6,36 @@ import AutocompleteFieldTwo from "@/components/auto-complete-fieldtwo";
 import Feedback from "@/components/feedback";
 import InputFieldOne from "@/components/input-field-one";
 
-export default function useSIDRFormSections(props) {
+export default function usePLMRFormSections(props) {
   const styles = useFormStyles();
 
   const {
     handleSubmit,
-    initVal,
-    clientIdsDataSet,
-    senderIdsDataSet,
-    providersDataSet,
-    networksDataSet,
-    senderId,
-    network,
-    clientId,
-    setClientId,
-    setSenderId,
-    provider,
-    setProvider,
-    setNetwork,
-    toSender,
-    setToSender,
     handleCloseEdit,
+    curProviderDataSet,
+    curNetworkDataSet,
+    longMsgProviderDataSet,
+    activeProvIsLoading,
+    networkLAllIsLoading,
+    curProvider,
+    setCurProvider,
     isEdit,
+    curNetwork,
+    setCurNetwork,
+    sendLongMsg,
+    setSendLongMsg,
+    longMsgProvider,
+    setLongMsgProvider,
     postStatusCode,
     putStatusCode,
     showStatus,
     showProgress,
     isDisabled,
-    sidrCIdsIsLoading,
-    sidrProvsIsLoading,
-    sidrSIdsIsLoading,
-    sidrNetIsLoading,
   } = props;
 
   const Header = (
     <View style={styles.formHeader}>
-      <Text style={styles.title}>Add/Edit Sender ID Replace</Text>
+      <Text style={styles.title}>Add/Edit Long Provider</Text>
 
       <Pressable onPress={handleCloseEdit} hitSlop={10}>
         <Text style={styles.closeBtn}>×</Text>
@@ -52,69 +46,53 @@ export default function useSIDRFormSections(props) {
   const Body = (
     <View style={styles.formBody}>
       <View style={styles.formGroup}>
-        <Text style={styles.controlLabel}>Client ID:</Text>
+        <Text style={styles.controlLabel}>Current Provider:</Text>
 
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
-            dataSet={clientIdsDataSet}
-            value={clientId}
-            onChange={(v) => setClientId(v)}
-            isLoading={sidrCIdsIsLoading}
+            dataSet={curProviderDataSet}
+            value={curProvider}
+            onChange={(v) => setCurProvider(v)}
+            isLoading={activeProvIsLoading}
             disabled={isEdit}
           />
         </View>
       </View>
 
       <View style={styles.formGroup}>
-        <Text style={styles.controlLabel}>Sender ID:</Text>
+        <Text style={styles.controlLabel}>Current Network:</Text>
 
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
-            dataSet={senderIdsDataSet}
-            value={senderId}
-            onChange={(v) => setSenderId(v)}
-            isLoading={sidrSIdsIsLoading}
-            disabled={clientId === initVal || isEdit}
-          />
-        </View>
-      </View>
-
-      <View style={styles.formGroup}>
-        <Text style={styles.controlLabel}>Provider:</Text>
-
-        <View style={styles.textfield}>
-          <AutocompleteFieldTwo
-            dataSet={providersDataSet}
-            value={provider}
-            onChange={(v) => setProvider(v)}
-            isLoading={sidrProvsIsLoading}
+            dataSet={curNetworkDataSet}
+            value={curNetwork}
+            onChange={(v) => setCurNetwork(v)}
+            isLoading={networkLAllIsLoading}
             disabled={isEdit}
           />
         </View>
       </View>
 
       <View style={styles.formGroup}>
-        <Text style={styles.controlLabel}>Network:</Text>
-
-        <View style={styles.textfield}>
-          <AutocompleteFieldTwo
-            dataSet={networksDataSet}
-            value={network}
-            onChange={(v) => setNetwork(v)}
-            isLoading={sidrNetIsLoading}
-            disabled={provider === initVal || isEdit}
-          />
-        </View>
-      </View>
-
-      <View style={styles.formGroup}>
-        <Text style={styles.controlLabel}>To Sender ID:</Text>
+        <Text style={styles.controlLabel}>Send long Msg greater than to:</Text>
 
         <View style={styles.textfield}>
           <InputFieldOne
-            value={toSender}
-            onChangeText={setToSender}
-            maxLength={11}
+            value={sendLongMsg?.trim()}
+            onChangeText={setSendLongMsg}
+          />
+        </View>
+      </View>
+
+      <View style={styles.formGroup}>
+        <Text style={styles.controlLabel}> LongMsg Provider:</Text>
+
+        <View style={styles.textfield}>
+          <AutocompleteFieldTwo
+            dataSet={longMsgProviderDataSet}
+            value={longMsgProvider}
+            onChange={(v) => setLongMsgProvider(v)}
+            isLoading={activeProvIsLoading}
           />
         </View>
       </View>

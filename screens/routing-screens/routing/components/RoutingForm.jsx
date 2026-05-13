@@ -39,14 +39,12 @@ export default function RoutingForm(props) {
   const { data: countryCode } = useRoutingCountries();
   const { data: provider } = useRoutingActiveProviders();
 
-  // console.log({ countryCode });
-
   const ctryDataSet =
-    countryCode && countryCode?.length > 0
+    countryCode?.length > 0
       ? genCtryDataSet([initFieldCtryC, ...countryCode])
       : genCtryDataSet([initFieldCtryC]);
   const provDataSet =
-    provider && provider?.length > 0
+    provider?.length > 0
       ? genDotDataSet([initFieldProv, ...provider], "provider")
       : genDotDataSet([initFieldProv], "provider");
 

@@ -20,15 +20,7 @@ export default function CustomAlert({
   buttons = [{ text: "OK", onPress: () => {} }],
   onClose,
 }) {
-  const { isSmallPhone, isTablet, isLandscape, fS, sS, rS, vS } =
-    useResponsive();
-
-  // const spacing = getSpacing({
-  //   sS,
-  //   isSmallPhone,
-  //   isTablet,
-  //   isLandscape,
-  // });
+  const { isSmallPhone, isTablet, isLandscape, vS } = useResponsive();
 
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(40)).current;

@@ -1,14 +1,19 @@
 import { useSubScreenStyles } from "@/styles/subScreenStyles";
 import { useCallback } from "react";
 import { ScrollView, SectionList, Text, View } from "react-native";
-import NLTableHead from "./NLTableHead";
-import NLTableRows from "./NLTableRows";
+import NPTableHead from "./NPTableHead";
+import NPTableRows from "./NPTableRows";
 
-export default function NLFilteredTables({ filter, filteredData, columns }) {
+export default function NPrefixFilteredTable({
+  filter,
+  filteredData,
+  columns,
+  handleHrefAddPrefix,
+}) {
   const styles = useSubScreenStyles();
   const renderRow = useCallback((item, section, index) => {
     return (
-      <NLTableRows
+      <NPTableRows
         row={item}
         previousRow={section.data[index - 1]}
         columns={section.columns}
@@ -19,6 +24,7 @@ export default function NLFilteredTables({ filter, filteredData, columns }) {
               }
             : null
         }
+        handleHrefAddPrefix={section.handleHrefAddPrefix}
       />
     );
   }, []);
@@ -50,6 +56,7 @@ export default function NLFilteredTables({ filter, filteredData, columns }) {
         panelHeading: `${countryObj["country_name"]} (${countryObj["country"]})`,
         data: countryData,
         columns,
+        handleHrefAddPrefix,
       };
 
       return sections;
@@ -60,6 +67,7 @@ export default function NLFilteredTables({ filter, filteredData, columns }) {
       panelHeading: `${filteredData[0]["country_name"]} (${filteredData[0]["country"]})`,
       data: filteredData,
       columns,
+      handleHrefAddPrefix,
     },
   ];
 
@@ -67,7 +75,7 @@ export default function NLFilteredTables({ filter, filteredData, columns }) {
     filter === "All countries" ? allCountriesSections : singleCountrySection;
 
   const renderHeader = ({ section }) => {
-    return <NLTableHead section={section} />;
+    return <NPTableHead section={section} />;
   };
 
   return (

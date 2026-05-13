@@ -1,4 +1,8 @@
 export const colors = {
+  subScreen: {
+    body_text: "#333",
+  },
+
   aCodeStyles: {
     offWhite: "#F8F9FA",
     border_clr: "#e5e5e5",

@@ -53,12 +53,12 @@ const AddNumRForm = ({
   );
 
   const provBankRDataSet =
-    activePData && activePData?.length > 0
+    activePData?.length > 0
       ? genDotDataSet([initProv, ...activePData], "provider")
       : genDotDataSet([initProv], "provider");
 
   const prefixesDataSet =
-    uniquePrefixes && uniquePrefixes?.length > 0
+    uniquePrefixes?.length > 0
       ? genDataSet([initPrefix, ...uniquePrefixes])
       : genDataSet([initPrefix]);
 

@@ -33,7 +33,7 @@ export default function OtpAddForm({
   const { data: activeProviders } = useRoutingProviderAddOtp(linkTextOtpAdd);
 
   const otpProvDataSet =
-    activeProviders && activeProviders?.length > 0
+    activeProviders?.length > 0
       ? genDotDataSet([initProv, ...activeProviders], "provider")
       : genDotDataSet([initProv], "provider");
 

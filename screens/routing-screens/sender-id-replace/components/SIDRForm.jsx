@@ -74,28 +74,28 @@ const SIDRForm = ({ handleCloseEdit, isEdit, editObj }) => {
   const clientIdsDataSet =
     isEdit && !sidrClientIdsData
       ? genDataSet([clientId])
-      : sidrClientIdsData && sidrClientIdsData?.length > 0
+      : sidrClientIdsData?.length > 0
         ? genDataSet([clientId, ...sidrClientIdsData])
         : genDataSet([clientId]);
 
   const senderIdsDataSet =
     isEdit && !sidrSenderIdsData
       ? genDataSet([senderId])
-      : sidrSenderIdsData && sidrSenderIdsData?.length > 0
+      : sidrSenderIdsData?.length > 0
         ? genDataSet([senderId, ...sidrSenderIdsData])
         : genDataSet([senderId]);
 
   const providersDataSet =
     isEdit && !sidrProvidersData
       ? genDataSet([provider])
-      : sidrProvidersData && sidrProvidersData?.length > 0
+      : sidrProvidersData?.length > 0
         ? genDataSet([provider, ...sidrProvidersData])
         : genDataSet([provider]);
 
   const networksDataSet =
     isEdit && !sidrNetworkData
       ? genDataSet([network])
-      : sidrNetworkData && sidrNetworkData?.length > 0
+      : sidrNetworkData?.length > 0
         ? genDataSet([network, ...sidrNetworkData])
         : genDataSet([network]);
 

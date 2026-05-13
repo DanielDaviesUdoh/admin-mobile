@@ -9,6 +9,7 @@ import { useResponsive } from "@/hooks/useResponsive";
 
 export const useSectionlistTableStyles = () => {
   const { isSmallPhone, isTablet } = useResponsive();
+  const buttonFontSize = isTablet ? typo.t3 : isSmallPhone ? typo.t1 : typo.t2;
 
   return useMemo(() => {
     const horizontalPadding = isTablet
@@ -134,6 +135,28 @@ export const useSectionlistTableStyles = () => {
         textDecorationColor: colors.sectionlistTable.link_text,
         fontSize: bodyFontSize,
         fontFamily: platformFonts.regular,
+      },
+
+      buttonCont: {
+        alignSelf: "flex-start",
+        minHeight: isTablet ? 34 : 28,
+        justifyContent: "center",
+        paddingVertical: isTablet ? spacing.xs2 : spacing.xs1,
+        paddingHorizontal: isTablet ? spacing.sm2 : spacing.sm1,
+        borderRadius: isTablet ? 6 : 4,
+        backgroundColor: colors.tablePanel.button_bg,
+      },
+
+      buttonContPressed: {
+        backgroundColor: colors.tablePanel.button_pressed_bg,
+        transform: [{ scale: 0.97 }],
+      },
+
+      buttonText: {
+        color: colors.tablePanel.button_text,
+        fontSize: buttonFontSize,
+        fontFamily: platformFonts.regular,
+        lineHeight: buttonFontSize * 1.2,
       },
 
       anchorAction: {

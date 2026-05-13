@@ -8,7 +8,7 @@ import {
 import { useSubScreenStyles } from "@/styles/subScreenStyles";
 import { useMemo, useState } from "react";
 import { View } from "react-native";
-import { COLUMNS_NETWORKLIST } from "../utils/NetworkLTHead";
+import { COLUMNS_NETWORKLIST } from "../constants/NetworkLTHead";
 import NetworkListForm from "./NetworkListForm";
 import NLFilteredTables from "./NLFilteredTables";
 
