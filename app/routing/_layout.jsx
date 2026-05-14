@@ -13,15 +13,14 @@ export default function RoutingLayout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="countries" />
-      {/* <Stack.Screen name="countrynetwork" /> */}
       <Stack.Screen name="networklist" />
       <Stack.Screen name="preferredprovider" />
       <Stack.Screen name="providernetwork" />
-      <Stack.Screen name="numberrouting" />
       <Stack.Screen name="designatedprovider" />
       <Stack.Screen name="networkprefix" />
       <Stack.Screen name="providerlongmessagerouting" />
-      <Stack.Screen name="routednumber" />
+      <Stack.Screen name="routinglog" />
+      <Stack.Screen name="senderidreplace" />
     </Stack>
   );
 }

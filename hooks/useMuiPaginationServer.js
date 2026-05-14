@@ -1,6 +1,5 @@
 import { useMuiPagination } from "@/components/mui-pagination/hooks/useMuiPagination";
 import { useEffect, useMemo, useState } from "react";
-import useOutlet from "./useOutlet";
 
 const useMuiPaginationServer = ({
   runFetchData,
@@ -20,8 +19,6 @@ const useMuiPaginationServer = ({
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [requestedItemsPerPage, setRequestedItemsPerPage] =
     useState(itemsPerPage);
-
-  const { setOutletNum } = useOutlet();
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -66,7 +63,6 @@ const useMuiPaginationServer = ({
     setTotalItems(total);
     setCurrentPage(requestedPage);
     setItemsPerPage(requestedItemsPerPage);
-    setOutletNum(requestedPage);
 
     if (typeof setPagQueryKey === "function") {
       setPagQueryKey(pagQueryKey);
@@ -83,7 +79,6 @@ const useMuiPaginationServer = ({
     pagQueryKey,
     setPagQueryKey,
     getNewData,
-    setOutletNum,
   ]);
 
   return {

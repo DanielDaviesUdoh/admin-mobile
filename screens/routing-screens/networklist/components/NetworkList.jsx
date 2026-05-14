@@ -12,12 +12,13 @@ import { COLUMNS_NETWORKLIST } from "../constants/NetworkLTHead";
 import NetworkListForm from "./NetworkListForm";
 import NLFilteredTables from "./NLFilteredTables";
 
+const initVal = {
+  name: "All countries",
+  code: "Select country code",
+  phonelen: "",
+};
+
 export default function NetworkListScreen() {
-  const initVal = {
-    name: "All countries",
-    code: "Select country code",
-    phonelen: "",
-  };
   const [value, setValue] = useState(initVal.name);
   const [filter, setFilter] = useState(initVal.name);
   const { data: countryCode, isLoading: countryCodeIsLoading } =
@@ -33,7 +34,7 @@ export default function NetworkListScreen() {
 
   // Filter data based on the selected filter
   const filteredData = useMemo(() => {
-    return filter === "All countries"
+    return filter === initVal.name
       ? routingListingAll
       : routingListingAll?.filter((item) => item["country_name"] === filter);
   }, [filter, routingListingAll]);
@@ -63,6 +64,7 @@ export default function NetworkListScreen() {
       {!rLAIsError && (
         <View style={styles.tableCont}>
           <NLFilteredTables
+            initVal={initVal}
             filter={filter}
             filteredData={filteredData}
             columns={COLUMNS_NETWORKLIST}

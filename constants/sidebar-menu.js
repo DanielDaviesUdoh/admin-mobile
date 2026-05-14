@@ -36,7 +36,7 @@ export const menuData = [
         icon: "send-outline",
         path: "/routing/providerlongmessagerouting",
       },
-      { title: "Routing Log", icon: "list", path: "/routing/routednumber" },
+      { title: "Routing Log", icon: "list", path: "/routing/routinglog" },
     ],
   },
 

@@ -14,13 +14,14 @@ import NetworkPrefixForm from "./NetworkPrefixForm";
 import NPDSAddPrefix from "./NPDSAddPrefix";
 import NPrefixFilteredTable from "./NPrefixFilteredTable";
 
+const initVal = {
+  name: "All countries",
+  code: "Select country code",
+  phonelen: "",
+};
+
 export default function NetworkPrefixScreen() {
   const styles = useSubScreenStyles();
-  const initVal = {
-    name: "All countries",
-    code: "Select country code",
-    phonelen: "",
-  };
   const [value, setValue] = useState(initVal.name);
   const [filter, setFilter] = useState(initVal.name);
   const [modalState, setModalState] = useState({
@@ -37,7 +38,7 @@ export default function NetworkPrefixScreen() {
   } = useNetworkPrefixAll();
 
   const filteredData = useMemo(() => {
-    return filter === "All countries"
+    return filter === initVal.name
       ? routingPrefixAll
       : routingPrefixAll?.filter((item) => item["country_name"] === filter);
   }, [filter, routingPrefixAll]);
@@ -74,6 +75,7 @@ export default function NetworkPrefixScreen() {
       {!rPAIsError && (
         <View style={styles.tableCont}>
           <NPrefixFilteredTable
+            initVal={initVal}
             filter={filter}
             filteredData={filteredData}
             columns={COLUMNS_NETWORKPREFIX}

@@ -1,8 +1,8 @@
 import ScreenWrap from "@/components/screen-wrap";
-import DesignatedProviderScreen from "@/screens/routing-screens/designated-provider/components/DesignatedProvider";
+import RoutingLogScreen from "@/screens/routing-screens/routing-log/components/RoutingLog";
 import { useState } from "react";
 
-export default function DesignatedProvider() {
+export default function RoutingLog() {
   const [showBtn, setShowBtn] = useState(false);
 
   const buttonFunc = () => {
@@ -13,12 +13,12 @@ export default function DesignatedProvider() {
 
   return (
     <ScreenWrap
-      pageTitle={"Designated Provider"}
+      pageTitle={"Routing Log"}
       showButton
       buttonTitle={buttonTitle}
       buttonFunc={buttonFunc}
     >
-      <DesignatedProviderScreen showBtn={showBtn} />
+      <RoutingLogScreen showBtn={showBtn} />
     </ScreenWrap>
   );
 }

@@ -39,11 +39,11 @@ export default function CountriesScreen({ showBtn }) {
 
   return (
     <View style={styles.cont}>
-      {!isError && data.length > 0 && showBtn && (
+      {!isError && data?.length > 0 && showBtn && (
         <View style={styles.textfieldCont}>
           <InputFieldOne
             style={{ marginBottom: 12 }}
-            placeholder="Filter by name"
+            placeholder="Filter by Name"
             value={filter}
             onChangeText={setFilter}
           />
@@ -54,7 +54,7 @@ export default function CountriesScreen({ showBtn }) {
       {isError && <FeedbackTwo statusCode={statusCode} />}
       {!isError &&
         !isLoading &&
-        (filter && filteredData.length === 0 ? (
+        (filter && filteredData?.length === 0 ? (
           <SearchFeedback text="name" />
         ) : (
           <View style={styles.tableCont}>

@@ -5,6 +5,7 @@ import NPTableHead from "./NPTableHead";
 import NPTableRows from "./NPTableRows";
 
 export default function NPrefixFilteredTable({
+  initVal,
   filter,
   filteredData,
   columns,
@@ -72,7 +73,7 @@ export default function NPrefixFilteredTable({
   ];
 
   const sectionsToRender =
-    filter === "All countries" ? allCountriesSections : singleCountrySection;
+    filter === initVal.name ? allCountriesSections : singleCountrySection;
 
   const renderHeader = ({ section }) => {
     return <NPTableHead section={section} />;

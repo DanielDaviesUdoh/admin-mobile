@@ -1,10 +1,10 @@
 import { useSubScreenStyles } from "@/styles/subScreenStyles";
 import { useCallback } from "react";
 import { ScrollView, SectionList, Text, View } from "react-native";
-import NLTableHead from "./NLTableHead";
-import NLTableRows from "./NLTableRows";
+import PNTableHead from "./PNTableHead";
+import PNTableRows from "./PNTableRows";
 
-export default function NLFilteredTables({
+export default function PNFilteredTable({
   initVal,
   filter,
   filteredData,
@@ -13,7 +13,7 @@ export default function NLFilteredTables({
   const styles = useSubScreenStyles();
   const renderRow = useCallback((item, section, index) => {
     return (
-      <NLTableRows
+      <PNTableRows
         row={item}
         previousRow={section.data[index - 1]}
         columns={section.columns}
@@ -37,42 +37,42 @@ export default function NLFilteredTables({
       </View>
     );
 
-  const uniqueCountries = [
-    ...new Set(filteredData.map((item) => item["country_name"])),
+  const uniqueProviders = [
+    ...new Set(filteredData?.map((item) => item["provider"])),
   ];
 
-  const allCountriesSections =
-    uniqueCountries &&
-    uniqueCountries.map((ctryName) => {
-      const countryObj = filteredData.find(
-        (item) => item["country_name"] === ctryName,
+  const allProvidersSections =
+    uniqueProviders &&
+    uniqueProviders.map((providr) => {
+      const providerObj = filteredData?.find(
+        (item) => item["provider"] === providr,
       );
-      const countryData = filteredData.filter(
-        (item) => item["country_name"] === ctryName,
+      const providerData = filteredData?.filter(
+        (item) => item["provider"] === providr,
       );
 
       const sections = {
-        panelHeading: `${countryObj["country_name"]} (${countryObj["country"]})`,
-        data: countryData,
+        panelHeading: providerObj["provider"],
+        data: providerData,
         columns,
       };
 
       return sections;
     });
 
-  const singleCountrySection = [
+  const singleProviderSection = [
     {
-      panelHeading: `${filteredData[0]["country_name"]} (${filteredData[0]["country"]})`,
+      panelHeading: filteredData[0]["provider"],
       data: filteredData,
       columns,
     },
   ];
 
   const sectionsToRender =
-    filter === initVal.name ? allCountriesSections : singleCountrySection;
+    filter === initVal.provider ? allProvidersSections : singleProviderSection;
 
   const renderHeader = ({ section }) => {
-    return <NLTableHead section={section} />;
+    return <PNTableHead section={section} />;
   };
 
   return (

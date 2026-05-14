@@ -14,6 +14,7 @@ const MuiPaginationServer = (props) => {
   const styles = useMuiPaginationStyles();
 
   const { isLoading } = props;
+  const pickerOptions = props.option || [20, 50, 100];
 
   const {
     data,
@@ -53,14 +54,14 @@ const MuiPaginationServer = (props) => {
             <MuiSelectField
               width={isTablet ? 110 : isSmallPhone ? 80 : 95}
               selected={itemsPerPage}
-              setSelected={(e) => {
-                setRequestedItemsPerPage(parseInt(e.target.value));
+              setSelected={(itemVal) => {
+                setRequestedItemsPerPage(itemVal);
                 setRequestedPage(0);
                 props.setRunFetchData(true);
               }}
               disabled={isLoading}
             >
-              {props.options.map((opt) => (
+              {pickerOptions.map((opt) => (
                 <Picker.Item
                   key={opt}
                   label={`${opt}`}
