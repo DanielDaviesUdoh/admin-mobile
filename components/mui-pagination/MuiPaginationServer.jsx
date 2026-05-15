@@ -1,13 +1,13 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { Picker } from "@react-native-picker/picker";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 
 import { colors } from "@/constants/colors";
+import { genDataSet } from "@/constants/menuItems";
 import useMuiPaginationServer from "@/hooks/useMuiPaginationServer";
 import { useResponsive } from "@/hooks/useResponsive";
 import { useMuiPaginationStyles } from "@/styles/muiPaginationStyles";
-import MuiSelectField from "../mui-select-field";
+import AutocompleteFieldTwo from "../auto-complete-fieldtwo";
 
 const MuiPaginationServer = (props) => {
   const { isSmallPhone, isTablet } = useResponsive();
@@ -15,6 +15,7 @@ const MuiPaginationServer = (props) => {
 
   const { isLoading } = props;
   const pickerOptions = props.option || [20, 50, 100];
+  const optionsDataSet = genDataSet(pickerOptions);
 
   const {
     data,
@@ -51,7 +52,20 @@ const MuiPaginationServer = (props) => {
           <View style={styles.left}>
             <Text style={styles.caption}>Per page</Text>
 
-            <MuiSelectField
+            <View style={{ width: isTablet ? 110 : isSmallPhone ? 80 : 95 }}>
+              <AutocompleteFieldTwo
+                search={false}
+                dataSet={optionsDataSet}
+                value={itemsPerPage}
+                onChange={(itemVal) => {
+                  setRequestedItemsPerPage(itemVal);
+                  setRequestedPage(0);
+                  props.setRunFetchData(true);
+                }}
+              />
+            </View>
+
+            {/* <MuiSelectField
               width={isTablet ? 110 : isSmallPhone ? 80 : 95}
               selected={itemsPerPage}
               setSelected={(itemVal) => {
@@ -69,7 +83,7 @@ const MuiPaginationServer = (props) => {
                   color={colors.muiPagination.body_text}
                 />
               ))}
-            </MuiSelectField>
+            </MuiSelectField> */}
           </View>
 
           <Text style={styles.rangeText}>{textRange}</Text>

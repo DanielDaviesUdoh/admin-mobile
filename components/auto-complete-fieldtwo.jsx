@@ -6,6 +6,7 @@ import { Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 
 export default function AutocompleteFieldTwo({
+  search = true,
   width = "100%",
   label = "",
   dataSet,
@@ -36,7 +37,7 @@ export default function AutocompleteFieldTwo({
   return (
     <Dropdown
       mode="default"
-      search
+      search={search}
       data={dataSet}
       labelField="title"
       valueField="value"

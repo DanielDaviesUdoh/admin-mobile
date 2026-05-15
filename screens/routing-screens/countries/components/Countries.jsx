@@ -66,15 +66,18 @@ export default function CountriesScreen({ showBtn }) {
             />
           </View>
         ))}
-      <MuiPagination
-        totalItems={totalItems}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        startIndex={startIndex}
-        endIndex={endIndex}
-        setCurrentPage={setCurrentPage}
-        setItemsPerPage={setItemsPerPage}
-      />
+
+      {data?.length > 0 && (
+        <MuiPagination
+          totalItems={totalItems}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          startIndex={startIndex}
+          endIndex={endIndex}
+          setCurrentPage={setCurrentPage}
+          setItemsPerPage={setItemsPerPage}
+        />
+      )}
     </View>
   );
 }

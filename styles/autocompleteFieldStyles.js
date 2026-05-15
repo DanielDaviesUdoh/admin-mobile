@@ -56,7 +56,7 @@ export const useAutocompleteFieldStyles = ({
             : colors.autocompleteField.global_white_clr,
           paddingBottom: spacing.xs1,
           paddingTop: spacing.xs1,
-          paddingHorizontal: spacing.xs3,
+          paddingHorizontal: spacing.md1,
         },
       },
 
