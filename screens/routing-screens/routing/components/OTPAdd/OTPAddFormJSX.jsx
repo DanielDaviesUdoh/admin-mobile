@@ -17,6 +17,7 @@ export default function OTPAddFormJSX(props) {
     statusCode,
     showStatus,
     showProgress,
+    activeProvidersIsLoading,
   } = props;
 
   const data = useOTPAddFormSections({
@@ -33,6 +34,7 @@ export default function OTPAddFormJSX(props) {
     statusCode,
     showStatus,
     showProgress,
+    activeProvidersIsLoading,
   });
 
   return (

@@ -40,6 +40,14 @@ export const useAutocompleteFieldStyles = ({
             : colors.autocompleteField.select_border_clr,
         borderRadius: isTablet ? 8 : 6,
       },
+      placeholderProp: {
+        fontSize,
+        fontFamily: platformFonts.regular,
+        paddingHorizontal: spacing.md1,
+        color: disabled
+          ? colors.autocompleteField.global_disabled_text_clr
+          : colors.autocompleteField.plchd_clr,
+      },
 
       textInputProps: {
         placeholderTextColor: colors.autocompleteField.plchd_clr,

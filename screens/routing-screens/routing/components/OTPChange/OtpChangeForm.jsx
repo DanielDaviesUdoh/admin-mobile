@@ -1,4 +1,4 @@
-import { genDotDataSet } from "@/constants/menuItems";
+import { genDotDataSet, getDataSetForDropdown } from "@/constants/menuItems";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import {
@@ -31,15 +31,16 @@ const OtpChangeForm = ({
   const [showStatus, setShowStatus] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
 
-  const { data: activeProviders } = useRoutingProviderChngOtp(
-    linkTextOtpChange,
-    provider,
-  );
+  const { data: activeProviders, isLoading: activeProvidersIsLoading } =
+    useRoutingProviderChngOtp(linkTextOtpChange, provider);
 
-  const otpProvDataSet =
-    activeProviders?.length > 0
-      ? genDotDataSet([initProv, ...activeProviders], "provider")
-      : genDotDataSet([initProv], "provider");
+  const otpProvDataSet = getDataSetForDropdown({
+    isLoading: activeProvidersIsLoading,
+    dataArray: activeProviders,
+    genDataSet: genDotDataSet,
+    initVal: initProv,
+    dotVal: "provider",
+  });
 
   const queryClient = useQueryClient();
   const { mutate, statusCode } = usePostRoutingSubmitChngOtpProv(
@@ -77,6 +78,7 @@ const OtpChangeForm = ({
       statusCode={statusCode}
       showStatus={showStatus}
       showProgress={showProgress}
+      activeProvidersIsLoading={activeProvidersIsLoading}
     />
   );
 };

@@ -17,6 +17,7 @@ export default function OtpChangeFormJSX(props) {
     statusCode,
     showStatus,
     showProgress,
+    activeProvidersIsLoading,
   } = props;
 
   const data = useOTPChangeFormSections({
@@ -33,6 +34,7 @@ export default function OtpChangeFormJSX(props) {
     statusCode,
     showStatus,
     showProgress,
+    activeProvidersIsLoading,
   });
 
   return (

@@ -27,6 +27,7 @@ export default function useAddNumRFormSections(props) {
     statusCode,
     showStatus,
     showProgress,
+    activePIsLoading,
   } = props;
 
   const isDisabled =
@@ -54,6 +55,7 @@ export default function useAddNumRFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={prefixesDataSet}
+            placeholder={prefixes}
             value={prefixes}
             onChange={(v) => setPrefixes(v)}
           />
@@ -101,8 +103,10 @@ export default function useAddNumRFormSections(props) {
           <View style={styles.textfield}>
             <AutocompleteFieldTwo
               dataSet={provBankRDataSet}
+              placeholder={provider}
               value={provider}
               onChange={(v) => setProvider(v)}
+              isLoading={activePIsLoading}
             />
           </View>
         </View>

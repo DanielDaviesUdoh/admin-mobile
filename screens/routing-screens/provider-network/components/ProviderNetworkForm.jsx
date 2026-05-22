@@ -21,6 +21,7 @@ export default function ProviderNetworkForm(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={provDataSet}
+            placeholder={value}
             value={value}
             onChange={(v) => setValue(v)}
             isLoading={activePIsLoading}

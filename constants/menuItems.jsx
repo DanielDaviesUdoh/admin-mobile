@@ -121,3 +121,25 @@ export const genClientIdDataSet = (data = [], type) => {
     value: obj["client_id"],
   }));
 };
+
+export const getDataSetForDropdown = ({
+  isLoading,
+  isEdit = false,
+  dataArray,
+  genDataSet,
+  initVal,
+  dotVal,
+}) => {
+  if (dotVal) {
+    if (isLoading) return [];
+    if (isEdit && !dataArray) return genDataSet([initVal]);
+    if (dataArray?.length > 0)
+      return genDataSet([initVal, ...dataArray], dotVal);
+    return [];
+  } else {
+    if (isLoading) return [];
+    if (isEdit && !dataArray) return genDataSet([initVal]);
+    if (dataArray?.length > 0) return genDataSet([initVal, ...dataArray]);
+    return [];
+  }
+};

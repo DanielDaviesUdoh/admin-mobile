@@ -23,6 +23,7 @@ export default function NetworkListForm(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={ctryDataSet}
+            placeholder={value}
             value={value}
             onChange={(v) => setValue(v)}
             isLoading={countryCodeIsLoading}

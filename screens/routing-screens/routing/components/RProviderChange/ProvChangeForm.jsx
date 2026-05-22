@@ -1,4 +1,4 @@
-import { genDotDataSet } from "@/constants/menuItems";
+import { genDotDataSet, getDataSetForDropdown } from "@/constants/menuItems";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import {
@@ -34,18 +34,25 @@ const ProvChangeForm = ({
   const [showStatus, setShowStatus] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
 
-  const { data: changeProviders } = useRoutingProviderChng(linkTextProvChange);
-  const { data: changeReasons } = useRoutingChngReason();
+  const { data: changeProviders, isLoading: changeProvidersIsLoading } =
+    useRoutingProviderChng(linkTextProvChange);
+  const { data: changeReasons, isLoading: changeReasonsIsLoading } =
+    useRoutingChngReason();
 
-  const provDataSet =
-    changeProviders?.length > 0
-      ? genDotDataSet([initProv, ...changeProviders], "provider")
-      : genDotDataSet([initProv], "provider");
-
-  const reasonDataSet =
-    changeReasons?.length > 0
-      ? genDotDataSet([initReason, ...changeReasons], "code")
-      : genDotDataSet([initReason], "code");
+  const provDataSet = getDataSetForDropdown({
+    isLoading: changeProvidersIsLoading,
+    dataArray: changeProviders,
+    genDataSet: genDotDataSet,
+    initVal: initProv,
+    dotVal: "provider",
+  });
+  const reasonDataSet = getDataSetForDropdown({
+    isLoading: changeReasonsIsLoading,
+    dataArray: changeReasons,
+    genDataSet: genDotDataSet,
+    initVal: initReason,
+    dotVal: "code",
+  });
 
   const queryClient = useQueryClient();
   const { mutate, statusCode } = usePostRoutingSubmitChngProv(
@@ -93,6 +100,8 @@ const ProvChangeForm = ({
       statusCode={statusCode}
       showStatus={showStatus}
       showProgress={showProgress}
+      changeProvidersIsLoading={changeProvidersIsLoading}
+      changeReasonsIsLoading={changeReasonsIsLoading}
     />
   );
 };

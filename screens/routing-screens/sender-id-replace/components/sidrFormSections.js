@@ -57,6 +57,7 @@ export default function useSIDRFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={clientIdsDataSet}
+            placeholder={clientId}
             value={clientId}
             onChange={(v) => setClientId(v)}
             isLoading={sidrCIdsIsLoading}
@@ -71,6 +72,7 @@ export default function useSIDRFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={senderIdsDataSet}
+            placeholder={senderId}
             value={senderId}
             onChange={(v) => setSenderId(v)}
             isLoading={sidrSIdsIsLoading}
@@ -85,6 +87,7 @@ export default function useSIDRFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={providersDataSet}
+            placeholder={provider}
             value={provider}
             onChange={(v) => setProvider(v)}
             isLoading={sidrProvsIsLoading}
@@ -99,6 +102,7 @@ export default function useSIDRFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={networksDataSet}
+            placeholder={network}
             value={network}
             onChange={(v) => setNetwork(v)}
             isLoading={sidrNetIsLoading}

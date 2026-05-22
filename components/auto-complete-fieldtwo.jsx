@@ -1,4 +1,3 @@
-// AutocompleteFieldTwo.jsx
 import { useAutocompleteFieldStyles } from "@/styles/autocompleteFieldStyles";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
@@ -8,7 +7,7 @@ import { Dropdown } from "react-native-element-dropdown";
 export default function AutocompleteFieldTwo({
   search = true,
   width = "100%",
-  label = "",
+  placeholder = "",
   dataSet,
   value = "",
   onChange,
@@ -37,6 +36,7 @@ export default function AutocompleteFieldTwo({
   return (
     <Dropdown
       mode="default"
+      placeholder={placeholder}
       search={search}
       data={dataSet}
       labelField="title"
@@ -62,17 +62,19 @@ export default function AutocompleteFieldTwo({
       )}
       style={[styles.inputContainerStyle, width]}
       containerStyle={styles.suggestionsListContainerStyle}
-      placeholderStyle={styles.textInputProps.placeholderTextColor}
+      placeholderStyle={styles.placeholderProp}
       selectedTextStyle={styles.textInputProps.style}
       inputSearchStyle={styles.textInputProps}
       flatListProps={{
         ItemSeparatorComponent: null,
+        ListEmptyComponent: () => (
+          <View style={{ paddingHorizontal: 16, paddingVertical: 2 }}>
+            <Text style={isLoading ? styles.loadingText : styles.emptyText}>
+              {isLoading ? "Loading..." : "Search does not match value"}
+            </Text>
+          </View>
+        ),
       }}
-      // renderEmptyComponent={() => (
-      //   <Text style={isLoading ? styles.loadingText : styles.emptyText}>
-      //     {isLoading ? "Loading..." : "Search does not match value"}
-      //   </Text>
-      // )}
     />
   );
 }

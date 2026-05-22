@@ -1,6 +1,6 @@
 import FeedbackTwo from "@/components/feedback-two";
 import Loading from "@/components/loading";
-import { genDotDataSet } from "@/constants/menuItems";
+import { genDotDataSet, getDataSetForDropdown } from "@/constants/menuItems";
 import { useRoutingActiveProviders } from "@/hooks/useRoutingShared";
 import { useSubScreenStyles } from "@/styles/subScreenStyles";
 import { useMemo, useState } from "react";
@@ -36,10 +36,13 @@ export default function ProviderNetworkScreen() {
     setFilter(value);
   };
 
-  const provDataSet =
-    activePData?.length > 0
-      ? genDotDataSet([initVal, ...activePData], "provider")
-      : genDotDataSet([initVal], "provider");
+  const provDataSet = getDataSetForDropdown({
+    isLoading: activePIsLoading,
+    dataArray: activePData,
+    genDataSet: genDotDataSet,
+    initVal,
+    dotVal: "provider",
+  });
 
   return (
     <View style={styles.cont}>

@@ -19,6 +19,8 @@ export default function RoutingFormJXS(props) {
     handleSubmit,
     selectedRadioBtn,
     setSelectedRadioBtn,
+    countryCodeIsLoading,
+    providerIsLoading,
     ctryDataSet,
     fieldCountryCode,
     setFieldCountryCode,
@@ -50,8 +52,9 @@ export default function RoutingFormJXS(props) {
         />
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
-            label="Country Code"
+            isLoading={countryCodeIsLoading}
             dataSet={ctryDataSet}
+            placeholder={fieldCountryCode}
             value={fieldCountryCode}
             onChange={(v) => setFieldCountryCode(v)}
             activeRadioBtn={"country code"}
@@ -83,8 +86,9 @@ export default function RoutingFormJXS(props) {
         />
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
-            label="Provider"
+            providerIsLoading={providerIsLoading}
             dataSet={provDataSet}
+            placeholder={fieldProvider}
             value={fieldProvider}
             onChange={(v) => setFieldProvider(v)}
             activeRadioBtn={"provider"}

@@ -1,4 +1,4 @@
-import { genDataSet } from "@/constants/menuItems";
+import { genDataSet, getDataSetForDropdown } from "@/constants/menuItems";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { genCurNetDataSet } from "../constants/plmrMenuItems";
@@ -75,19 +75,29 @@ const PLMRForm = ({
 
   const activeProviders = activeProvData?.map((item) => item.provider);
 
-  const curNetworkDataSet =
-    networkLAllData?.length > 0
-      ? genCurNetDataSet([curNetworkVal, ...networkLAllData])
-      : genCurNetDataSet([curNetworkVal]);
+  const curNetworkDataSet = getDataSetForDropdown({
+    isLoading: networkLAllIsLoading,
+    isEdit,
+    dataArray: networkLAllData,
+    genDataSet: genCurNetDataSet,
+    initVal: curNetworkVal,
+  });
 
-  const curProviderDataSet =
-    activeProviders?.length > 0
-      ? genDataSet([curProviderVal, ...activeProviders])
-      : genDataSet([curProviderVal]);
-  const longMsgProviderDataSet =
-    activeProviders?.length > 0
-      ? genDataSet([longMsgProviderVal, ...activeProviders])
-      : genDataSet([longMsgProviderVal]);
+  const curProviderDataSet = getDataSetForDropdown({
+    isLoading: activeProvIsLoading,
+    isEdit,
+    dataArray: activeProviders,
+    genDataSet,
+    initVal: curProviderVal,
+  });
+
+  const longMsgProviderDataSet = getDataSetForDropdown({
+    isLoading: activeProvIsLoading,
+    isEdit,
+    dataArray: activeProviders,
+    genDataSet,
+    initVal: longMsgProviderVal,
+  });
 
   const isDisabled =
     curProvider === "Select" ||

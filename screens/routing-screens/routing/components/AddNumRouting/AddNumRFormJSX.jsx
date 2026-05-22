@@ -20,6 +20,7 @@ export default function AddNumRFormJSX(props) {
     statusCode,
     showStatus,
     showProgress,
+    activePIsLoading,
   } = props;
 
   const data = useAddNumRFormSections({
@@ -39,6 +40,7 @@ export default function AddNumRFormJSX(props) {
     statusCode,
     showStatus,
     showProgress,
+    activePIsLoading,
   });
 
   return (

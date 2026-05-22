@@ -1,4 +1,4 @@
-import { genDataSet } from "@/constants/menuItems";
+import { genDataSet, getDataSetForDropdown } from "@/constants/menuItems";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import {
@@ -65,39 +65,42 @@ const SIDRForm = ({ handleCloseEdit, isEdit, editObj }) => {
   const sidrProvidersData = sidrProvsData?.codes;
   const { data: sidrSIdsData, isLoading: sidrSIdsIsLoading } =
     useGetSIdReplaceSenderIds(clientId, initVal);
-
   const sidrSenderIdsData = sidrSIdsData?.senderIds;
   const { data: sidrNetData, isLoading: sidrNetIsLoading } =
     useGetSIdReplaceNetwork(provider, initVal);
   const sidrNetworkData = sidrNetData?.mccmncList;
 
-  const clientIdsDataSet =
-    isEdit && !sidrClientIdsData
-      ? genDataSet([clientId])
-      : sidrClientIdsData?.length > 0
-        ? genDataSet([clientId, ...sidrClientIdsData])
-        : genDataSet([clientId]);
+  const clientIdsDataSet = getDataSetForDropdown({
+    isLoading: sidrCIdsIsLoading,
+    isEdit,
+    dataArray: sidrClientIdsData,
+    genDataSet,
+    initVal: clientId,
+  });
 
-  const senderIdsDataSet =
-    isEdit && !sidrSenderIdsData
-      ? genDataSet([senderId])
-      : sidrSenderIdsData?.length > 0
-        ? genDataSet([senderId, ...sidrSenderIdsData])
-        : genDataSet([senderId]);
+  const senderIdsDataSet = getDataSetForDropdown({
+    isLoading: sidrSIdsIsLoading,
+    isEdit,
+    dataArray: sidrSenderIdsData,
+    genDataSet,
+    initVal: senderId,
+  });
 
-  const providersDataSet =
-    isEdit && !sidrProvidersData
-      ? genDataSet([provider])
-      : sidrProvidersData?.length > 0
-        ? genDataSet([provider, ...sidrProvidersData])
-        : genDataSet([provider]);
+  const providersDataSet = getDataSetForDropdown({
+    isLoading: sidrProvsIsLoading,
+    isEdit,
+    dataArray: sidrProvidersData,
+    genDataSet,
+    initVal: provider,
+  });
 
-  const networksDataSet =
-    isEdit && !sidrNetworkData
-      ? genDataSet([network])
-      : sidrNetworkData?.length > 0
-        ? genDataSet([network, ...sidrNetworkData])
-        : genDataSet([network]);
+  const networksDataSet = getDataSetForDropdown({
+    isLoading: sidrNetIsLoading,
+    isEdit,
+    dataArray: sidrNetworkData,
+    genDataSet,
+    initVal: network,
+  });
 
   const isDisabled =
     clientId === initVal ||
@@ -106,8 +109,6 @@ const SIDRForm = ({ handleCloseEdit, isEdit, editObj }) => {
     network === initVal ||
     toSender?.trim() === "" ||
     showProgress;
-
-  // const isDisabled = false;
 
   const handleSubmit = (e) => {
     e.preventDefault();

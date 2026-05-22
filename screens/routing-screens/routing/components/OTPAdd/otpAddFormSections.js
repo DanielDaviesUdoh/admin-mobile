@@ -23,6 +23,7 @@ export default function useOTPAddFormSections(props) {
     statusCode,
     showStatus,
     showProgress,
+    activeProvidersIsLoading,
   } = props;
 
   const isDisabled = providerChange === initProv.provider || showProgress;
@@ -81,8 +82,10 @@ export default function useOTPAddFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={otpProvDataSet}
+            placeholder={providerChange}
             value={providerChange}
             onChange={(v) => setProviderChange(v)}
+            isLoading={activeProvidersIsLoading}
           />
         </View>
       </View>

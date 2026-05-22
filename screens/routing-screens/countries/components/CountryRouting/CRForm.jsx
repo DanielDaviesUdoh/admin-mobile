@@ -3,7 +3,11 @@ import { useState } from "react";
 import { usePostRoutingCountryByCC } from "../../hooks/useCtryRouting";
 import CRFormJSX from "./CRFormJSX";
 
-import { genDataSet, genDotDataSet } from "@/constants/menuItems";
+import {
+  genDataSet,
+  genDotDataSet,
+  getDataSetForDropdown,
+} from "@/constants/menuItems";
 import { useRoutingCountries } from "../../../../../hooks/useRoutingShared";
 
 const CRForm = ({
@@ -49,15 +53,19 @@ const CRForm = ({
   const nPrefix = ctryNetworks?.map((obj) => obj["network_prefix"]);
   const uniqueNPrefix = nPrefix && [...new Set(nPrefix)];
 
-  const netPrefixDataSet =
-    uniqueNPrefix?.length > 0
-      ? genDataSet([initNetPrefix, ...uniqueNPrefix])
-      : genDataSet([initNetPrefix]);
+  const netPrefixDataSet = getDataSetForDropdown({
+    dataArray: uniqueNPrefix,
+    genDataSet,
+    initVal: initNetPrefix,
+  });
 
-  const provDataSet =
-    providerData?.length > 0
-      ? genDotDataSet([initProv, ...providerData], "provider")
-      : genDotDataSet([initProv], "provider");
+  const provDataSet = getDataSetForDropdown({
+    dataArray: providerData,
+    genDataSet: genDotDataSet,
+    initVal: initProv,
+    dotVal: "provider",
+  });
+
   const defaultCtryMaxLength = countriesData?.find(
     (ctry) => ctry.code === countryCode,
   )?.phonelen;

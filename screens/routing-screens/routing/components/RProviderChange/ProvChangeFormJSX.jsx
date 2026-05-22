@@ -21,6 +21,8 @@ export default function ProvChangeFormJSX(props) {
     statusCode,
     showStatus,
     showProgress,
+    changeProvidersIsLoading,
+    changeReasonsIsLoading,
   } = props;
 
   const data = useProvChangeFormSections({
@@ -41,6 +43,8 @@ export default function ProvChangeFormJSX(props) {
     statusCode,
     showStatus,
     showProgress,
+    changeProvidersIsLoading,
+    changeReasonsIsLoading,
   });
 
   return (

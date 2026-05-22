@@ -21,6 +21,7 @@ export default function NetworkPrefixForm(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={ctryDataSet}
+            placeholder={value}
             value={value}
             onChange={(v) => setValue(v)}
             isLoading={countryCodeIsLoading}

@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
-import useOutlet from "./useOutlet";
 import { usePostDataTwo } from "./usePostDataTwo";
 
 const useMuiPagServerTwo = ({
@@ -21,8 +20,6 @@ const useMuiPagServerTwo = ({
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(defaultPage);
 
-  const { setOutletNum } = useOutlet();
-
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
@@ -42,7 +39,6 @@ const useMuiPagServerTwo = ({
       setTotalItems(total);
       setCurrentPage(requestedPage);
       setItemsPerPage(requestedItemsPerPage);
-      setOutletNum(requestedPage);
 
       if (typeof setPagQueryKey === "function") {
         setPagQueryKey(queryKey);
@@ -72,7 +68,6 @@ const useMuiPagServerTwo = ({
       setTotalItems(cached.totalItems);
       setCurrentPage(requestedPage);
       setItemsPerPage(requestedItemsPerPage);
-      setOutletNum(requestedPage);
 
       return;
     }
@@ -88,7 +83,6 @@ const useMuiPagServerTwo = ({
     queryKey,
     requestedItemsPerPage,
     requestedPage,
-    setOutletNum,
   ]);
 
   return {

@@ -51,6 +51,7 @@ export default function usePLMRFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={curProviderDataSet}
+            placeholder={curProvider}
             value={curProvider}
             onChange={(v) => setCurProvider(v)}
             isLoading={activeProvIsLoading}
@@ -65,6 +66,7 @@ export default function usePLMRFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={curNetworkDataSet}
+            placeholder={curNetwork}
             value={curNetwork}
             onChange={(v) => setCurNetwork(v)}
             isLoading={networkLAllIsLoading}
@@ -90,6 +92,7 @@ export default function usePLMRFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={longMsgProviderDataSet}
+            placeholder={longMsgProvider}
             value={longMsgProvider}
             onChange={(v) => setLongMsgProvider(v)}
             isLoading={activeProvIsLoading}

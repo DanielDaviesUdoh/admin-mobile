@@ -2,7 +2,11 @@ import {
   getHandleSelectFocus,
   getHandleTextFocus,
 } from "@/constants/fieldFocusFunc";
-import { genCtryDataSet, genDotDataSet } from "@/constants/menuItems";
+import {
+  genCtryDataSet,
+  genDotDataSet,
+  getDataSetForDropdown,
+} from "@/constants/menuItems";
 import {
   useRoutingActiveProviders,
   useRoutingCountries,
@@ -36,17 +40,25 @@ export default function RoutingForm(props) {
     showProgDataDesgPLongM,
   } = props;
 
-  const { data: countryCode } = useRoutingCountries();
-  const { data: provider } = useRoutingActiveProviders();
+  const { data: countryCode, isLoading: countryCodeIsLoading } =
+    useRoutingCountries();
+  const { data: provider, isLoading: providerIsLoading } =
+    useRoutingActiveProviders();
 
-  const ctryDataSet =
-    countryCode?.length > 0
-      ? genCtryDataSet([initFieldCtryC, ...countryCode])
-      : genCtryDataSet([initFieldCtryC]);
-  const provDataSet =
-    provider?.length > 0
-      ? genDotDataSet([initFieldProv, ...provider], "provider")
-      : genDotDataSet([initFieldProv], "provider");
+  const ctryDataSet = getDataSetForDropdown({
+    isLoading: countryCodeIsLoading,
+    dataArray: countryCode,
+    genDataSet: genCtryDataSet,
+    initVal: initFieldCtryC,
+  });
+
+  const provDataSet = getDataSetForDropdown({
+    isLoading: providerIsLoading,
+    dataArray: provider,
+    genDataSet: genDotDataSet,
+    initVal: initFieldProv,
+    dotVal: "provider",
+  });
 
   const disableFetchBtn = getDisableFetchBtn(
     selectedRadioBtn,
@@ -78,6 +90,8 @@ export default function RoutingForm(props) {
       handleSubmit={handleSubmit}
       selectedRadioBtn={selectedRadioBtn}
       setSelectedRadioBtn={setSelectedRadioBtn}
+      countryCodeIsLoading={countryCodeIsLoading}
+      providerIsLoading={providerIsLoading}
       countryCode={countryCode}
       ctryDataSet={ctryDataSet}
       fieldCountryCode={fieldCountryCode}

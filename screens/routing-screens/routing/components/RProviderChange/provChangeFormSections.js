@@ -27,6 +27,8 @@ export default function useProvChangeFormSections(props) {
     statusCode,
     showStatus,
     showProgress,
+    changeProvidersIsLoading,
+    changeReasonsIsLoading,
   } = props;
 
   const isDisabled =
@@ -98,8 +100,10 @@ export default function useProvChangeFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={provDataSet}
+            placeholder={providerChange}
             value={providerChange}
             onChange={(v) => setProviderChange(v)}
+            isLoading={changeProvidersIsLoading}
           />
         </View>
       </View>
@@ -112,8 +116,10 @@ export default function useProvChangeFormSections(props) {
         <View style={styles.textfield}>
           <AutocompleteFieldTwo
             dataSet={reasonDataSet}
+            placeholder={reason}
             value={reason}
             onChange={(v) => setReason(v)}
+            isLoading={changeReasonsIsLoading}
           />
         </View>
       </View>

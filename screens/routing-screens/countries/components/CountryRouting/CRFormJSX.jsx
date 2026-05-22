@@ -6,8 +6,6 @@ export default function CRFormJSX(props) {
   const {
     handleSubmit,
     handleClose,
-    initNetPrefix,
-    initProv,
     networkPrefix,
     provider,
     netPrefixDataSet,

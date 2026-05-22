@@ -1,7 +1,7 @@
 import FeedbackTwo from "@/components/feedback-two";
 import Loading from "@/components/loading";
 import { getHrefModal } from "@/constants/hrefModal";
-import { genCtryDataSet } from "@/constants/menuItems";
+import { genCtryDataSet, getDataSetForDropdown } from "@/constants/menuItems";
 import {
   useNetworkPrefixAll,
   useRoutingCountries,
@@ -47,10 +47,13 @@ export default function NetworkPrefixScreen() {
     setFilter(value);
   };
 
-  const ctryDataSet =
-    countryCode?.length > 0
-      ? genCtryDataSet([initVal, ...countryCode], "name")
-      : genCtryDataSet([initVal], "name");
+  const ctryDataSet = getDataSetForDropdown({
+    isLoading: countryCodeIsLoading,
+    dataArray: countryCode,
+    genDataSet: genCtryDataSet,
+    initVal,
+    dotVal: "name",
+  });
 
   const { handleHref, closeModal } = useMemo(
     () => getHrefModal(setModalState),

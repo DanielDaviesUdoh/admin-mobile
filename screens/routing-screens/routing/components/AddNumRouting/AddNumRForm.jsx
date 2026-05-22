@@ -1,4 +1,8 @@
-import { genDataSet, genDotDataSet } from "@/constants/menuItems";
+import {
+  genDataSet,
+  genDotDataSet,
+  getDataSetForDropdown,
+} from "@/constants/menuItems";
 import {
   useRoutingActiveProviders,
   useRoutingCountries,
@@ -38,7 +42,8 @@ const AddNumRForm = ({
 
   const queryClient = useQueryClient();
   const { data: countriesData } = useRoutingCountries();
-  const { data: activePData } = useRoutingActiveProviders();
+  const { data: activePData, isLoading: activePIsLoading } =
+    useRoutingActiveProviders();
   const { mutate, statusCode } = usePostNumberRouting(
     queryClient,
     qKey,
@@ -52,15 +57,18 @@ const AddNumRForm = ({
     setShowProgress,
   );
 
-  const provBankRDataSet =
-    activePData?.length > 0
-      ? genDotDataSet([initProv, ...activePData], "provider")
-      : genDotDataSet([initProv], "provider");
-
-  const prefixesDataSet =
-    uniquePrefixes?.length > 0
-      ? genDataSet([initPrefix, ...uniquePrefixes])
-      : genDataSet([initPrefix]);
+  const provBankRDataSet = getDataSetForDropdown({
+    isLoading: activePIsLoading,
+    dataArray: activePData,
+    genDataSet: genDotDataSet,
+    initVal: initProv,
+    dotVal: "provider",
+  });
+  const prefixesDataSet = getDataSetForDropdown({
+    dataArray: uniquePrefixes,
+    genDataSet: genDataSet,
+    initVal: initPrefix,
+  });
 
   const defaultCtryMaxLength = countriesData?.find(
     (ctry) => ctry.code === objectType?.country,
@@ -100,6 +108,7 @@ const AddNumRForm = ({
       statusCode={statusCode}
       showStatus={showStatus}
       showProgress={showProgress}
+      activePIsLoading={activePIsLoading}
     />
   );
 };
