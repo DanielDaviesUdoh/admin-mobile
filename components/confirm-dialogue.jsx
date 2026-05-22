@@ -34,7 +34,7 @@ export default function ConfirmDialog({
         useNativeDriver: true,
       }).start();
     }
-  }, [open]);
+  }, [open, translateY]);
 
   return (
     <Modal
