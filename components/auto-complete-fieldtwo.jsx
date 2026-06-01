@@ -70,7 +70,7 @@ export default function AutocompleteFieldTwo({
         ListEmptyComponent: () => (
           <View style={{ paddingHorizontal: 16, paddingVertical: 2 }}>
             <Text style={isLoading ? styles.loadingText : styles.emptyText}>
-              {isLoading ? "Loading..." : "Search does not match value"}
+              {isLoading ? "Loading..." : "Nothing to select"}
             </Text>
           </View>
         ),

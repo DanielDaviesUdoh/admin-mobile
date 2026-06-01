@@ -50,21 +50,6 @@ const MuiPagination = ({
                 onChange={(v) => setItemsPerPage(v)}
               />
             </View>
-
-            {/* <MuiSelectField
-              width={isTablet ? 110 : isSmallPhone ? 80 : 95}
-              selected={itemsPerPage}
-              setSelected={setItemsPerPage}
-            >
-              {options.map((opt) => (
-                <Picker.Item
-                  key={opt}
-                  label={`${opt}`}
-                  value={opt}
-                  color={colors.muiPagination.body_text}
-                />
-              ))}
-            </MuiSelectField> */}
           </View>
 
           <Text style={styles.rangeText}>

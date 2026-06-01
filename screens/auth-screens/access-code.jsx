@@ -1,15 +1,14 @@
+import AutocompleteFieldTwo from "@/components/auto-complete-fieldtwo";
 import CCheckbox from "@/components/checkbox";
 import CustomAlert from "@/components/custom-alert";
 import InputFieldOne from "@/components/input-field-one";
-import SelectFieldOne from "@/components/select-field-one";
 import { colors } from "@/constants/colors";
-import { platformFonts } from "@/constants/platform";
+import { genDataSet, getDataSetForDropdown } from "@/constants/menuItems";
 import { useAuth } from "@/hooks/useAuth";
 import useStaff from "@/hooks/useStaff";
 import api from "@/services/api";
 import { SEND_CODE, STAFF_AUTH } from "@/services/routingEndpoints";
 import { useAccessCodeStyles } from "@/styles/accessCodeStyles";
-import { Picker } from "@react-native-picker/picker";
 import { useMutation } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
@@ -30,8 +29,9 @@ export default function AccessCodeScreen() {
   const sendCodeAbortRef = useRef(null);
   const loginAbortRef = useRef(null);
 
+  const initMobile = "Select";
   const [accessCode, setAccessCode] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [mobile, setMobile] = useState(initMobile);
   const [sentCode, setSentCode] = useState(null);
   const [codeSentIsValid, setCodeSentIsValid] = useState(null);
   const [showError, setShowError] = useState(null);
@@ -42,6 +42,14 @@ export default function AccessCodeScreen() {
   const email = staff?.email;
   const maskedEmail =
     email?.substring(0, 4) + "***" + email?.substring(email.indexOf("@"));
+
+  const mobileArray = mobileOption && [mobileOption];
+
+  const mobileDataSet = getDataSetForDropdown({
+    dataArray: mobileArray,
+    genDataSet,
+    initVal: initMobile,
+  });
 
   useEffect(() => {
     if (authorized) {
@@ -182,7 +190,7 @@ export default function AccessCodeScreen() {
             <View style={styles.info}>
               <Text style={styles.infoName}>ACCESS CODE</Text>
               <View style={styles.infoType}>
-                <CCheckbox checkboxContStyle={{ opacity: 0 }} status={mobile} />
+                <CCheckbox checkboxContStyle={{ opacity: 0 }} />
                 <View style={styles.inputCont}>
                   <InputFieldOne
                     placeholder={"Access Code"}
@@ -198,47 +206,15 @@ export default function AccessCodeScreen() {
               Mobile <Text style={styles.slantText}>#</Text>
             </Text>
             <View style={styles.infoType}>
-              <CCheckbox status={mobile} />
+              <CCheckbox status={mobile !== initMobile} />
               <View style={styles.inputCont}>
-                <SelectFieldOne
-                  width="100%"
-                  selected={mobile}
-                  setSelected={(itemValue) => setMobile(itemValue)}
-                  item={mobileOption}
-                >
-                  {mobileOption ? (
-                    [
-                      <Picker.Item
-                        key={"select"}
-                        value={""}
-                        label="SELECT"
-                        style={{
-                          fontSize: 16,
-                          fontFamily: platformFonts.regular,
-                        }}
-                      />,
-                      <Picker.Item
-                        key={mobileOption}
-                        value={mobileOption}
-                        label={mobileOption}
-                        style={{
-                          fontSize: 16,
-                          fontFamily: platformFonts.regular,
-                        }}
-                      />,
-                    ]
-                  ) : (
-                    <Picker.Item
-                      value={""}
-                      label="Nothing to select"
-                      color={!mobileOption ? "red" : undefined}
-                      style={{
-                        fontSize: 16,
-                        fontFamily: platformFonts.regular,
-                      }}
-                    />
-                  )}
-                </SelectFieldOne>
+                <AutocompleteFieldTwo
+                  search={false}
+                  dataSet={mobileDataSet}
+                  placeholder={mobile}
+                  value={mobile}
+                  onChange={(v) => setMobile(v)}
+                />
               </View>
             </View>
           </View>
