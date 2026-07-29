@@ -8,6 +8,7 @@ export default function AppFooter() {
   return (
     <View style={styles.footerCont}>
       <Text style={styles.footerText}>&copy; {year} - ABC Company Ltd</Text>
+      <Text>Test update</Text>
     </View>
   );
 }

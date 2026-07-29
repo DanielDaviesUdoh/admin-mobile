@@ -2,7 +2,7 @@ import { getCurrentPath } from "@/constants/routeStore";
 import axios from "axios";
 import { router } from "expo-router";
 
-export const BASE_URL = "https://dev.wirepick.com/wpkadmin-api-1.3.9";
+export const BASE_URL = "https://dev.wirepick.com:8443/wpkadmin-api-1.3.9";
 
 const api = axios.create({
   baseURL: BASE_URL,

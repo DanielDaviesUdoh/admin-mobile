@@ -36,6 +36,7 @@ export default function LoginScreen({ setAccessCode }) {
       }
     },
     onError: (error) => {
+      console.log({ loginErr: error });
       setAccessCode(false);
       setErrorStatus(error.message);
       setShowAlert(true);
