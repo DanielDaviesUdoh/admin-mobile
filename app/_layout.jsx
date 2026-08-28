@@ -1,3 +1,4 @@
+import "intl-pluralrules";
 import "text-encoding-polyfill";
 
 import { toastConfig } from "@/constants/toast-config";
@@ -6,22 +7,34 @@ import { ConfirmDialogProvider } from "@/context/confirm-dialogue-provider";
 import { FontProvider } from "@/context/font-provider";
 import SlideProvider from "@/context/slide-provider";
 import { StaffProvider } from "@/context/staff-provider";
+import { initI18n } from "@/i18n";
 import { SocketProvider } from "@/services/socket/SocketProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
-import { Appearance } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, Appearance } from "react-native";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import AppContent from "./_appContent";
 
 export default function RootLayout() {
-  const [queryclient] = useState(new QueryClient());
-  const [colorscheme] = useState(Appearance.getColorScheme());
+  const queryClient = useMemo(() => new QueryClient(), []);
+  const colorScheme = useMemo(() => Appearance.getColorScheme(), []);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const init = async () => {
+      await initI18n();
+      setReady(true);
+    };
+    init();
+  }, []);
+
+  if (!ready) return <ActivityIndicator size="large" color="blue" />;
 
   return (
-    <QueryClientProvider client={queryclient}>
+    <QueryClientProvider client={queryClient}>
       <SocketProvider>
         <AuthProvider>
           <SlideProvider>
@@ -30,12 +43,12 @@ export default function RootLayout() {
                 <SafeAreaProvider>
                   <ConfirmDialogProvider>
                     <AutocompleteDropdownContextProvider>
-                      <AppContent colorscheme={colorscheme} />
+                      <AppContent colorscheme={colorScheme} />
                     </AutocompleteDropdownContextProvider>
                   </ConfirmDialogProvider>
                   <Toast config={toastConfig} />
                   <StatusBar
-                    style={colorscheme === "dark" ? "dark" : "light"}
+                    style={colorScheme === "dark" ? "dark" : "light"}
                   />
                 </SafeAreaProvider>
               </FontProvider>

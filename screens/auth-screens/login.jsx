@@ -3,12 +3,14 @@ import InputField from "@/components/input-field";
 import { colors } from "@/constants/colors";
 import { useResponsive } from "@/hooks/useResponsive";
 import useStaff from "@/hooks/useStaff";
+import { useI18nNamespaces } from "@/i18n/useI18nNamespaces";
 import api from "@/services/api";
 import { STAFF_LOGIN } from "@/services/routingEndpoints";
 import { useLoginStyles } from "@/styles/loginStyles";
 import { Ionicons } from "@expo/vector-icons";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
 export default function LoginScreen({ setAccessCode }) {
@@ -20,6 +22,8 @@ export default function LoginScreen({ setAccessCode }) {
   const [password, setPassword] = useState("");
   const [errorStatus, setErrorStatus] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
+  const ready = useI18nNamespaces(["home"]);
+  const { t } = useTranslation("home");
 
   // Mutate function for login
   const loginMutation = useMutation({
@@ -50,6 +54,8 @@ export default function LoginScreen({ setAccessCode }) {
     loginMutation.mutate({ staffId, password });
   };
 
+  if (!ready) return <ActivityIndicator />;
+
   return (
     <View style={styles.container}>
       <View style={styles.subcont}>
@@ -62,7 +68,7 @@ export default function LoginScreen({ setAccessCode }) {
         </View>
         <View style={styles.inputCont}>
           <InputField
-            placeholder="Staff Id"
+            placeholder={t("form.staffId")}
             value={staffId}
             onChangeText={setStaffId}
             iconName="account"
@@ -71,7 +77,7 @@ export default function LoginScreen({ setAccessCode }) {
         </View>
         <View style={styles.inputCont}>
           <InputField
-            placeholder="Password"
+            placeholder={t("form.password")}
             value={password}
             onChangeText={setPassword}
             secureTextEntry
@@ -86,7 +92,7 @@ export default function LoginScreen({ setAccessCode }) {
               color={colors.header_bgclr}
               size={isTablet ? 26 : 24}
             />
-            <Text style={styles.spinText}>Securely logging in...</Text>
+            <Text style={styles.spinText}>{t("form.loggingIn")}</Text>
           </View>
         )}
 
@@ -101,7 +107,7 @@ export default function LoginScreen({ setAccessCode }) {
           onPress={handleSubmit}
           disabled={isDisabled}
         >
-          <Text style={styles.buttonText}>LOGIN</Text>
+          <Text style={styles.buttonText}>{t("form.login")}</Text>
         </Pressable>
       </View>
       <CustomAlert

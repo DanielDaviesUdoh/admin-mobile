@@ -1,5 +1,7 @@
+import { useI18nNamespaces } from "@/i18n/useI18nNamespaces";
 import { useInputFieldStyles } from "@/styles/inputFieldStyles";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
 
@@ -19,6 +21,8 @@ export default function InputField({
   });
 
   const styles = useInputFieldStyles();
+  const ready = useI18nNamespaces(["home"]);
+  const { t } = useTranslation("home");
 
   const handleBlur = () => {
     if (!value.trim()) {
@@ -37,6 +41,8 @@ export default function InputField({
       password: false,
     });
   };
+
+  if (!ready) return null;
 
   return (
     <>
@@ -75,12 +81,12 @@ export default function InputField({
       />
       {emptyWarn.staffId && (
         <View style={styles.warntypeCont}>
-          <Text style={styles.warntype}>You must be a staff</Text>
+          <Text style={styles.warntype}>{t("form.mustBeStaff")}</Text>
         </View>
       )}
       {emptyWarn.password && (
         <View style={styles.warntypeCont}>
-          <Text style={styles.warntype}>You Should enter a password</Text>
+          <Text style={styles.warntype}>{t("form.enterPassword")}</Text>
         </View>
       )}
     </>

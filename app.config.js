@@ -30,6 +30,7 @@ export default ({ config }) => ({
     },
     plugins: [
       "expo-router",
+      "expo-localization",
       [
         "expo-splash-screen",
         {
@@ -50,6 +51,7 @@ export default ({ config }) => ({
       eas: {
         projectId: "c479b977-e64d-4cd3-bdb0-2b60ea05e9b7",
       },
+      appEnv: process.env.APP_ENV ?? "production", // <- forwarded for runtime use
     },
 
     // ✅ These two are now environment-aware:
