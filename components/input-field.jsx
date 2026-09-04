@@ -25,7 +25,7 @@ export default function InputField({
   const { t } = useTranslation("home");
 
   const handleBlur = () => {
-    if (!value.trim()) {
+    if (!value?.trim()) {
       if (warnType === "staffId") {
         setEmptyWarn((prev) => ({ ...prev, staffId: true }));
       } else if (warnType === "password") {

@@ -33,8 +33,8 @@ export const ConfirmDialogProvider = ({ children }) => {
 
       <ConfirmDialog
         open={open}
-        title={options.title}
-        message={options.message}
+        title={options?.title}
+        message={options?.message}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       />

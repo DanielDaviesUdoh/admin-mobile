@@ -20,7 +20,7 @@ export default function OutletWrap({ children }) {
 
   return (
     <SafeAreaViewWrap>
-      <AppHeader toggleSidebar={toggleSidebar} closeSidebar={closeSidebar} />
+      <AppHeader toggleSidebar={toggleSidebar} />
       <View style={styles.outletCont}>
         <SidebarModal
           isVisible={isVisible}

@@ -128,7 +128,7 @@ export const getDataSetForDropdown = ({
   dataArray,
   genDataSet,
   initVal,
-  dotVal,
+  dotVal, //dotVal can represent dot | value | type when used from parent code
 }) => {
   if (dotVal) {
     if (isLoading) return [];

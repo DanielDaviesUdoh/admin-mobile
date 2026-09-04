@@ -64,7 +64,7 @@ export default function AutocompleteFieldTwo({
       containerStyle={styles.suggestionsListContainerStyle}
       placeholderStyle={styles.placeholderProp}
       selectedTextStyle={styles.textInputProps.style}
-      inputSearchStyle={styles.textInputProps}
+      inputSearchStyle={styles.placeholderProp}
       flatListProps={{
         ItemSeparatorComponent: null,
         ListEmptyComponent: () => (

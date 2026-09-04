@@ -20,7 +20,7 @@ export default function CustomAlert({
   buttons = [{ text: "OK", onPress: () => {} }],
   onClose,
 }) {
-  const { isSmallPhone, isTablet, isLandscape, vS } = useResponsive();
+  const { isSmallPhone, isTablet, isLandscape } = useResponsive();
 
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(40)).current;
@@ -47,13 +47,13 @@ export default function CustomAlert({
           useNativeDriver: true,
         }),
         Animated.timing(translateY, {
-          toValue: vS(40),
+          toValue: 40,
           duration: 200,
           useNativeDriver: true,
         }),
       ]).start();
     }
-  }, [visible, opacity, translateY, vS]);
+  }, [visible, opacity, translateY]);
 
   const styles = useMemo(() => {
     const maxWidth = isTablet

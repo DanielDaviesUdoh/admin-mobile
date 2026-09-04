@@ -182,5 +182,5 @@ export const useSectionlistTableStyles = () => {
         fontFamily: platformFonts.bold,
       },
     });
-  }, [isSmallPhone, isTablet]);
+  }, [isSmallPhone, isTablet, buttonFontSize]);
 };

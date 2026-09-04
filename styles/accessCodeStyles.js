@@ -131,5 +131,5 @@ export const useAccessCodeStyles = () => {
         includeFontPadding: false, // Android
       },
     });
-  }, [fS, sS, rS, htS, spacing, isTablet, isSmallPhone, isLandscape]);
+  }, [rS, isTablet, isSmallPhone, isLandscape]);
 };

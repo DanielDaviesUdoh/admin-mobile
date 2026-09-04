@@ -13,30 +13,43 @@ export default function HeaderMenu({
 }) {
   const [shouldRender, setShouldRender] = useState(visible);
 
-  /**
-   * 0 = hidden
-   * 1 = fully visible
-   */
   const progress = useRef(new Animated.Value(0)).current;
+  const currentAnimation = useRef(null);
 
   useEffect(() => {
+    currentAnimation.current?.stop();
+
     if (visible) {
       setShouldRender(true);
 
-      Animated.timing(progress, {
+      currentAnimation.current = Animated.timing(progress, {
         toValue: 1,
         duration: 220,
         useNativeDriver: true,
-      }).start();
+      });
+
+      currentAnimation.current.start(() => {
+        currentAnimation.current = null;
+      });
     } else if (shouldRender) {
-      Animated.timing(progress, {
+      currentAnimation.current = Animated.timing(progress, {
         toValue: 0,
         duration: 180,
         useNativeDriver: true,
-      }).start(() => {
-        setShouldRender(false);
+      });
+
+      currentAnimation.current.start(({ finished }) => {
+        currentAnimation.current = null;
+
+        if (finished) {
+          setShouldRender(false);
+        }
       });
     }
+
+    return () => {
+      currentAnimation.current?.stop();
+    };
   }, [visible, progress, shouldRender]);
 
   if (!shouldRender) {

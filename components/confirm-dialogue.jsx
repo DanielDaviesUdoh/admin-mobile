@@ -1,15 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import {
   Animated,
-  Dimensions,
+  // Dimensions,
   Modal,
   Pressable,
   StyleSheet,
   Text,
   View,
+  useWindowDimensions,
 } from "react-native";
 
-const { height } = Dimensions.get("window");
+// const { height } = Dimensions.get("window");
 
 export default function ConfirmDialog({
   open,
@@ -18,6 +19,7 @@ export default function ConfirmDialog({
   onConfirm,
   onCancel,
 }) {
+  const { height } = useWindowDimensions();
   const translateY = useRef(new Animated.Value(-height)).current;
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function ConfirmDialog({
         useNativeDriver: true,
       }).start();
     }
-  }, [open, translateY]);
+  }, [open, height, translateY]);
 
   return (
     <Modal

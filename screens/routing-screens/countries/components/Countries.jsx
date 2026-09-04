@@ -54,7 +54,7 @@ export default function CountriesScreen({ showBtn }) {
       {isError && <FeedbackTwo statusCode={statusCode} />}
       {!isError &&
         !isLoading &&
-        (filter && filteredData?.length === 0 ? (
+        (filter && filteredData?.length < 1 ? (
           <SearchFeedback text="name" />
         ) : (
           <View style={styles.tableCont}>
