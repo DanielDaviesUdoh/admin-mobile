@@ -14,6 +14,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, Appearance } from "react-native";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import AppContent from "./_appContent";
@@ -43,7 +44,9 @@ export default function RootLayout() {
                 <SafeAreaProvider>
                   <ConfirmDialogProvider>
                     <AutocompleteDropdownContextProvider>
-                      <AppContent colorscheme={colorScheme} />
+                      <KeyboardProvider>
+                        <AppContent colorscheme={colorScheme} />
+                      </KeyboardProvider>
                     </AutocompleteDropdownContextProvider>
                   </ConfirmDialogProvider>
                   <Toast config={toastConfig} />

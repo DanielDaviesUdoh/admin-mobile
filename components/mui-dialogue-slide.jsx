@@ -22,7 +22,7 @@ export default function MuiDialogSlide({
       useNativeDriver
       propagateSwipe
       hideModalContentWhileAnimating
-      avoidKeyboard
+      // avoidKeyboard
       style={styles.modalWrapper}
     >
       <View

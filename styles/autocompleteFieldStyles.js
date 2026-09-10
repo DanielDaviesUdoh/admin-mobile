@@ -15,7 +15,7 @@ export const useAutocompleteFieldStyles = ({
   return useMemo(() => {
     const fontSize = isTablet ? typo.t5 : isSmallPhone ? typo.t3 : typo.t4;
 
-    const iconSize = isTablet ? 24 : 20;
+    const iconSize = isTablet ? 20 : 16;
     const clearIconSize = isTablet ? 22 : 18;
 
     return {
@@ -69,7 +69,7 @@ export const useAutocompleteFieldStyles = ({
       },
 
       renderItemContainer: {
-        paddingVertical: spacing.xs2,
+        paddingVertical: spacing.md1,
         paddingHorizontal: spacing.sm3,
       },
 
@@ -113,7 +113,7 @@ export const useAutocompleteFieldStyles = ({
       clearIconSize,
       iconColor: disabled
         ? colors.autocompleteField.global_disabled_text_clr
-        : colors.autocompleteField.global_black_clr,
+        : colors.autocompleteField.plchd_clr,
     };
   }, [width, focused, disabled, isSmallPhone, isTablet]);
 };

@@ -1,7 +1,7 @@
 // src/i18n/loadNamespaces.js
 import { fetchNamespace } from "./apiLoader";
 import { getCachedNamespace, setCachedNamespace } from "./cache";
-import i18n from "./index";
+import i18n from "./instance";
 
 const MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
@@ -18,7 +18,6 @@ const loadOne = async (lng, ns) => {
   const alreadyLoaded = i18n.hasResourceBundle(lng, ns);
   const lastChecked = lastCheckedAt.get(key) || 0;
   const dueForRecheck = Date.now() - lastChecked > MAX_AGE_MS;
-  console.log({ dueForRecheck });
 
   // if it's already in memory AND we checked recently, nothing to do
   if (alreadyLoaded && !dueForRecheck) return;

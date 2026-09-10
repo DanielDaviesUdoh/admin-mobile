@@ -1,9 +1,3 @@
-// import { platformFonts } from "./platform";
-
-// const styles = {
-//   fontFamily: platformFonts.regular,
-// };
-
 const renderClientIdTitle = (type, obj) => {
   if (type === 1)
     return `${obj["country_name"]} - ${obj["client_id"]} - ${obj["client_name"]}`;
@@ -19,127 +13,86 @@ const renderClientIdTitle = (type, obj) => {
     }`;
 };
 
-// export const genMenuItems = (data, defaultVal = null) => {
-//   const newData = data && defaultVal ? [defaultVal, ...data] : data;
-//   const menuItems =
-//     newData &&
-//     newData.map((value, index) => {
-//       return (
-//         <Picker.Item key={index} style={styles} value={value} label={value} />
-//       );
-//     });
-
-//   return menuItems;
-// };
-
-// export const genDotMenuItems = (data, dot, defaultVal = null) => {
-//   const newData = data && defaultVal ? [defaultVal, ...data] : data;
-//   const menuItems =
-//     newData &&
-//     newData.map((obj, index) => {
-//       return (
-//         <Picker.Item
-//           key={index}
-//           style={styles}
-//           value={obj[dot]}
-//           label={obj[dot]}
-//         />
-//       );
-//     });
-
-//   return menuItems;
-// };
-
-// export const getCtryMenuItems = (data, value = "code", defaultVal = null) => {
-//   const newData = data && defaultVal ? [defaultVal, ...data] : data;
-//   const menuItems =
-//     newData &&
-//     newData.map((obj) => {
-//       return (
-//         <Picker.Item
-//           key={obj.code}
-//           style={styles}
-//           value={value === "code" ? obj.code : obj.name}
-//           label={
-//             defaultVal
-//               ? `${obj.name} ${obj.code !== "" ? `(${obj.code})` : obj.code}`
-//               : `${obj.name} (${obj.code})`
-//           }
-//         />
-//       );
-//     });
-
-//   return menuItems;
-// };
-
-// export const getClientIdMenuItems = (data, type, defaultVal = null) => {
-//   const newData = data && defaultVal ? [defaultVal, ...data] : data;
-//   const menuItems =
-//     newData &&
-//     newData.map((obj) => {
-//       return (
-//         <Picker.Item
-//           key={obj["client_id"]}
-//           style={styles}
-//           value={obj["client_id"]}
-//           label={renderClientIdTitle(type, obj)}
-//         />
-//       );
-//     });
-
-//   return menuItems;
-// };
-
-export const genDataSet = (data = []) => {
+export const genDataSet = (data = [], initVal, translatedVal) => {
   return data.map((value) => ({
     id: value?.toString(),
-    title: value?.toString(),
+    title: value === initVal ? `${translatedVal}` : value?.toString(),
     value: value,
   }));
 };
 
+//initVal = {provider: "SENTINEL_VALUE", isDefault: true, sentinel: t("select")}
 export const genDotDataSet = (data = [], dot) => {
   return data.map((obj) => ({
     id: obj[dot]?.toString(),
-    title: obj[dot]?.toString(),
+    title: obj?.isDefault ? `${obj.sentinel}` : obj[dot]?.toString(),
     value: obj[dot],
   }));
 };
 
+//initVal will look like this for ctry prototype {name: "sentinel", code: "sentinel", isDefault: true, sentinel: t("allCountries")}
 export const genCtryDataSet = (data = [], value = "code") => {
   return data.map((obj) => ({
     id: obj.code?.toString(),
-    title: `${obj.name} ${obj.code !== "Select country code" ? `(${obj.code})` : ""}`,
+    title: obj?.isDefault ? `${obj.sentinel}` : `${obj.name} (${obj.code})`,
     value: value === "code" ? obj.code : obj.name,
   }));
 };
 
+//initVal = {client_id: "SENTINEL_VALUE", isDefault: true, sentinel: t("select")}
 export const genClientIdDataSet = (data = [], type) => {
   return data.map((obj) => ({
     id: obj["client_id"]?.toString(),
-    title: renderClientIdTitle(type, obj),
+    title: obj?.isDefault ? `${obj.sentinel}` : renderClientIdTitle(type, obj),
     value: obj["client_id"],
   }));
 };
 
 export const getDataSetForDropdown = ({
+  genType,
+  genFunc,
   isLoading,
   isEdit = false,
-  dataArray,
-  genDataSet,
+  data,
   initVal,
-  dotVal, //dotVal can represent dot | value | type when used from parent code
+  translatedVal,
+  dot,
+  value,
+  type,
 }) => {
-  if (dotVal) {
+  if (genType === "genDataSet") {
     if (isLoading) return [];
-    if (isEdit && !dataArray) return genDataSet([initVal]);
-    if (dataArray?.length > 0)
-      return genDataSet([initVal, ...dataArray], dotVal);
+    if (isEdit && !data) return genFunc([initVal]);
+    if (data?.length > 0)
+      return genFunc([initVal, ...data], initVal, translatedVal);
     return [];
-  } else {
+  }
+
+  if (genType === "genDotDataSet") {
     if (isLoading) return [];
-    if (isEdit && !dataArray) return genDataSet([initVal]);
-    if (dataArray?.length > 0) return genDataSet([initVal, ...dataArray]);
+    if (isEdit && !data) return genFunc([initVal]);
+    if (data?.length > 0) return genFunc([initVal, ...data], dot);
+    return [];
+  }
+
+  if (genType === "genCtryDataSet") {
+    if (isLoading) return [];
+    if (isEdit && !data) return genFunc([initVal]);
+    if (data?.length > 0) return genFunc([initVal, ...data], value);
+    return [];
+  }
+
+  if (genType === "genClientIdDataSet") {
+    if (isLoading) return [];
+    if (isEdit && !data) return genFunc([initVal]);
+    if (data?.length > 0) return genFunc([initVal, ...data], type);
+    return [];
+  }
+
+  if (genType === "genCurNetDataSet") {
+    if (isLoading) return [];
+    if (isEdit && !data) return genFunc([initVal]);
+    if (data?.length > 0) return genFunc([initVal, ...data]);
     return [];
   }
 };

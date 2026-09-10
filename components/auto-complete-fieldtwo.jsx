@@ -1,7 +1,7 @@
 import { useAutocompleteFieldStyles } from "@/styles/autocompleteFieldStyles";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 
 export default function AutocompleteFieldTwo({
@@ -48,16 +48,27 @@ export default function AutocompleteFieldTwo({
       onChange={(item) => {
         if (item) onChange(item.value);
       }}
+      renderInputSearch={(onSearch) => (
+        <TextInput
+          style={styles.placeholderProp}
+          placeholder="Search..."
+          editable={!isLoading}
+          onChangeText={(text) => {
+            if (!isLoading) onSearch(text);
+          }}
+        />
+      )}
       renderItem={(item) => (
         <View style={styles.renderItemContainer}>
           <Text style={styles.renderItemText}>{item.title}</Text>
         </View>
       )}
-      renderRightIcon={() => (
+      renderRightIcon={(visible) => (
         <Ionicons
-          name="chevron-down"
+          name={visible ? "caret-up" : "caret-down"}
           size={styles.chevronSize}
           color={styles.iconColor}
+          style={{ marginRight: 12 }}
         />
       )}
       style={[styles.inputContainerStyle, width]}
